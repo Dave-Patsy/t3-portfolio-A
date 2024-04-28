@@ -7,6 +7,7 @@ import {
   authRoutes,
   publicRoutes
 } from './routes'
+import { env } from "./env";
 
 
 const {auth} = NextAuth(authConfig)
@@ -15,6 +16,7 @@ const {auth} = NextAuth(authConfig)
 // @ts-ignore
 export default auth( (req) => {
   const {nextUrl} = req
+  console.log('nexturl in middleware: ', nextUrl)
   const isLoggidIn = !!req.auth
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiUthPrefix)
@@ -26,7 +28,7 @@ export default auth( (req) => {
   }
   if (isAuthRoute) {
     if(isLoggidIn){
-      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT,nextUrl))
+      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT,env.NEXTAUTH_URL))
     }
     return null
   }
