@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 
 import { TRPCReactProvider } from "@/trpc/react";
 import Link from "next/link";
+import { env } from "@/env";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,6 +22,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  console.log("next auth url",env.NEXTAUTH_URL)
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>

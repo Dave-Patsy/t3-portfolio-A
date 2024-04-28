@@ -13,7 +13,7 @@ export default function Social() {
         size={"lg"}
         className="w-full"
         variant={"outline"}
-        onClick={() => null}
+        onClick={() => signIn("google")}
       >
         <FcGoogle />
       </Button>
@@ -21,7 +21,7 @@ export default function Social() {
         size={"lg"}
         className="w-full"
         variant={"outline"}
-        onClick={() => null}
+        onClick={() => signIn("github")}
       >
         <FaGithub />
       </Button>
@@ -29,7 +29,7 @@ export default function Social() {
         size={"lg"}
         className="w-full"
         variant={"outline"}
-        onClick={() => signIn('discord')}
+        onClick={() => signIn("discord")}
       >
         <FaDiscord />
       </Button>
