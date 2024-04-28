@@ -33,7 +33,7 @@ export default auth( (req) => {
     return null
   }
   if(!isLoggidIn && !isPublicRoute){
-    return Response.redirect(new URL('/auth/login',nextUrl))
+    return Response.redirect(new URL("/auth/login", env.NEXTAUTH_URL));
   }
 
   return null;
