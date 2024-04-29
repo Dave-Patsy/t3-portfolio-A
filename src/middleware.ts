@@ -23,7 +23,7 @@ export default auth( (req) => {
   
   const isLoggidIn = !!req.auth
 
-  const isApiAuthRoute = reqUrl.pathname.startsWith(apiAuthPrefix);
+  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(reqUrl.pathname);
   const isAuthRoute = authRoutes.includes(reqUrl.pathname);
 
@@ -33,7 +33,7 @@ export default auth( (req) => {
   if (isAuthRoute) {
     if(isLoggidIn){
       return Response.redirect(
-        new URL(DEFAULT_LOGIN_REDIRECT, reqUrl.pathname),
+        new URL(DEFAULT_LOGIN_REDIRECT, env.NEXT_PUBLIC_APP_URL),
       );
     }
     return null
@@ -46,7 +46,7 @@ export default auth( (req) => {
 
     // const encodedCallbackUrl = encodeURIComponent(callbackUrl)
 
-    return Response.redirect(new URL("/auth/login", reqUrl));
+    return Response.redirect(new URL("/auth/login", env.NEXT_PUBLIC_APP_URL));
   }
 
   return null;

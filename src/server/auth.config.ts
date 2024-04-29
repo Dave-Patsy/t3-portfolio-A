@@ -17,9 +17,13 @@ export default {
       clientSecret: env.DISCORD_CLIENT_SECRET,
     }),
     Google({
-      clientId:env.GOOGLE_CLIENT_ID,
-      clientSecret:env.GOOGLE_CLIENT_SECRET
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
+    // GitHub({
+    //   clientId: env.GOOGLE_CLIENT_ID,
+    //   clientSecret: env.GOOGLE_CLIENT_SECRET,
+    // }),
     Credentials({
       authorize: async (credentials) => {
         const validatedFields = LoginSchema.safeParse(credentials);
