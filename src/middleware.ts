@@ -16,12 +16,15 @@ const {auth} = NextAuth(authConfig)
 // @ts-ignore
 export default auth( (req) => {
   const {nextUrl, url} = req
-  console.log("nexturl in middleware: ", url);
+  const reqUrl = new URL(url)
+  console.log("url in middleware: ", reqUrl);
+  console.log("url pathname in middleware: ", reqUrl.pathname);
+  
   const isLoggidIn = !!req.auth
 
-  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
-  const isAuthRoute = authRoutes.includes(nextUrl.pathname)
+  const isApiAuthRoute = reqUrl.pathname.startsWith(apiAuthPrefix);
+  const isPublicRoute = publicRoutes.includes(reqUrl.pathname);
+  const isAuthRoute = authRoutes.includes(reqUrl.pathname);
 
   if(isApiAuthRoute){
     return null
@@ -29,7 +32,7 @@ export default auth( (req) => {
   if (isAuthRoute) {
     if(isLoggidIn){
       return Response.redirect(
-        new URL(DEFAULT_LOGIN_REDIRECT, nextUrl.pathname),
+        new URL(DEFAULT_LOGIN_REDIRECT, reqUrl.pathname),
       );
     }
     return null
@@ -42,12 +45,7 @@ export default auth( (req) => {
 
     // const encodedCallbackUrl = encodeURIComponent(callbackUrl)
 
-    return Response.redirect(
-      new URL(
-        "/auth/login",
-        nextUrl,
-      ),
-    );
+    return Response.redirect(new URL("/auth/login", reqUrl));
   }
 
   return null;
