@@ -19,6 +19,7 @@ export default auth( (req) => {
   const reqUrl = new URL(url)
   console.log("url in middleware: ", reqUrl);
   console.log("url pathname in middleware: ", reqUrl.pathname);
+  console.log("url hostname in middleware: ", reqUrl.hostname);
   
   const isLoggidIn = !!req.auth
 
