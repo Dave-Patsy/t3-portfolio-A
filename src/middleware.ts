@@ -20,6 +20,10 @@ export default auth( (req) => {
   console.log("url in middleware: ", reqUrl);
   console.log("url pathname in middleware: ", reqUrl.pathname);
   console.log("url hostname in middleware: ", reqUrl.hostname);
+  console.log(
+    "NEXT_PUBLIC_APP_URL in middleware: ",
+    env.NEXT_PUBLIC_APP_URL,
+  );
   
   const isLoggidIn = !!req.auth
 
