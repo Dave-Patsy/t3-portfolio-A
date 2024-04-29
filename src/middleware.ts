@@ -15,8 +15,8 @@ const {auth} = NextAuth(authConfig)
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export default auth( (req) => {
-  const {nextUrl} = req
-  console.log('nexturl in middleware: ', nextUrl)
+  const {nextUrl, url} = req
+  console.log("nexturl in middleware: ", url);
   const isLoggidIn = !!req.auth
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
