@@ -54,11 +54,13 @@ export const settings = async(values:z.infer<typeof SettingsSchema>) => {
     if(!passwordsMatch){
       return {error: 'Incorrect password'}
     }
+    const hashedPassword = await bcrypt.hash(values.newPassword, 10);
+
+    values.newPassword = hashedPassword
+
   }
-  let hashedPassword;
-  if (values.newPassword) {
-    hashedPassword = await bcrypt.hash(values.newPassword, 10);
-  }
+
+ 
 
   await db.user.update({
     where: { id: dbUser.id },
