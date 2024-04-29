@@ -35,7 +35,7 @@ export const env = createEnv({
     LIVEKIT_API_SECRET: z.string(),
     OPENAI_API_KEY: z.string(),
     REPLICATE_API_TOKEN: z.string(),
-    RESEND_API_KEY:z.string()
+    RESEND_API_KEY: z.string(),
   },
 
   /**
@@ -47,6 +47,13 @@ export const env = createEnv({
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
     NEXT_PUBLIC_PUBLISHABLE_KEY: z.string(),
     NEXT_PUBLIC_LIVEKIT_URL: z.string(),
+    NEXT_PUBLIC_APP_URL: z.preprocess(
+      // This makes Vercel deployments not fail if you don't set NEXTAUTH_URL
+      // Since NextAuth.js automatically uses the VERCEL_URL if present.
+      (str) => process.env.NEXT_PUBLIC_APP_URL ?? str,
+      // VERCEL_URL doesn't include `https` so it cant be validated as a URL
+      process.env.NEXT_PUBLIC_APP_URL ? z.string() : z.string().url(),
+    ),
   },
 
   /**
@@ -72,7 +79,8 @@ export const env = createEnv({
     NEXT_PUBLIC_LIVEKIT_URL: process.env.NEXT_PUBLIC_LIVEKIT_URL,
     OPENAI_API_KEY: process.env.OPENAI_API_KEY,
     REPLICATE_API_TOKEN: process.env.REPLICATE_API_TOKEN,
-    RESEND_API_KEY: process.env.RESEND_API_KEY
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
+    NEXT_PUBLIC_APP_URL: process.env.PUBLIC_APP_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

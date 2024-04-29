@@ -5,6 +5,8 @@ import { Inter } from "next/font/google";
 import { TRPCReactProvider } from "@/trpc/react";
 import Link from "next/link";
 import { env } from "@/env";
+import AuthProvider from "@/providers/auth-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,13 +29,16 @@ export default function RootLayout({
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
         <TRPCReactProvider>
-          <nav className="relative h-0">
-            <div className="fixed w-full pt-2 flex gap-4 justify-center text-primary-foreground">
-              <Link href={'/'}>Home</Link>
-              <Link href={'/settings'}>Settings</Link>
-            </div>
-          </nav>
-          {children}
+          <AuthProvider>
+            <Toaster/>
+            <nav className="relative h-0">
+              <div className="fixed w-full pt-2 flex gap-4 justify-center">
+                <Link href={'/'}>Home</Link>
+                <Link href={'/settings'}>Settings</Link>
+              </div>
+            </nav>
+            {children}
+          </AuthProvider>
         </TRPCReactProvider>
       </body>
     </html>

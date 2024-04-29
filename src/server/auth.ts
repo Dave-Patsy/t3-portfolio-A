@@ -6,7 +6,9 @@ import { type JWT } from "next-auth/jwt";
 import NextAuth, { type DefaultSession } from "next-auth";
 import authConfig from "./auth.config";
 import { getUserById } from "@/data/user";
-import type { $Enums, UserRole } from "@prisma/client";
+import type { UserRole } from "@prisma/client";
+import { getTwoFactorConfirmationByUser } from "@/data/two-factor-confirmation";
+import { getAccountByUserId } from "@/data/account";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
@@ -35,7 +37,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       if(!existingUser?.emailVerified) return false
 
-      // TODO: Add 2FA check
+      
+      if(existingUser.isTwoFactorEnabled){
+        const twoFactorConfirmation = await getTwoFactorConfirmationByUser(existingUser.id)
+
+        if(!twoFactorConfirmation) return false
+        await db.twoFactorConfirmation.delete({
+          where:{id:twoFactorConfirmation.id}
+        })
+      }
+
       return true
     },
     async session({ session, token }) {
@@ -47,6 +58,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         session.user.role = token.role;
       }
+      
+      if (session.user) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        session.user.isTwoFactorEnabled = token.isTwoFactorEnabled;
+      }
+
+      if(session.user) {
+        session.user.name = token.name
+        session.user.name = token.email
+        session.user.isOAuth = token.isOAuth
+      }
 
       return session;
     },
@@ -54,9 +76,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (!token.sub) return token;
       const existingUser = await getUserById(token.sub);
       if (!existingUser) return token;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      token.role = existingUser.role;
 
+      const existingAccount = await getAccountByUserId(existingUser.id)
+
+      token.isOAuth = !!existingAccount;
+      token.role = existingUser.role;
+      token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled
+      token.name = existingUser.name
+      token.email = existingUser.email
       return token;
     },
   },
@@ -69,6 +96,8 @@ declare module "next-auth" {
     user: {
       id: string;
       role: UserRole;
+      isTwoFactorEnabled?: boolean;
+      isOAuth: boolean;
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
@@ -86,6 +115,8 @@ declare module "next-auth/jwt" {
   interface JWT {
     /** OpenID ID Token */
     role?: UserRole;
+    isTwoFactorEnabled?:boolean
+    isOAuth: boolean
   }
 }
 

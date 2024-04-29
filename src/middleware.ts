@@ -3,10 +3,10 @@ import NextAuth from "next-auth";
 
 import {
   DEFAULT_LOGIN_REDIRECT,
-  apiUthPrefix,
+  apiAuthPrefix,
   authRoutes,
-  publicRoutes
-} from './routes'
+  publicRoutes,
+} from "./routes";
 import { env } from "./env";
 
 
@@ -19,7 +19,7 @@ export default auth( (req) => {
   console.log('nexturl in middleware: ', nextUrl)
   const isLoggidIn = !!req.auth
 
-  const isApiAuthRoute = nextUrl.pathname.startsWith(apiUthPrefix)
+  const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
   const isAuthRoute = authRoutes.includes(nextUrl.pathname)
 
@@ -28,12 +28,26 @@ export default auth( (req) => {
   }
   if (isAuthRoute) {
     if(isLoggidIn){
-      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT,env.NEXTAUTH_URL))
+      return Response.redirect(
+        new URL(DEFAULT_LOGIN_REDIRECT, nextUrl.pathname),
+      );
     }
     return null
   }
   if(!isLoggidIn && !isPublicRoute){
-    return Response.redirect(new URL("/auth/login", env.NEXTAUTH_URL));
+    // let callbackUrl = nextUrl.pathname
+    // if(nextUrl.search) {
+    //   callbackUrl += nextUrl.search
+    // }
+
+    // const encodedCallbackUrl = encodeURIComponent(callbackUrl)
+
+    return Response.redirect(
+      new URL(
+        "/auth/login",
+        nextUrl,
+      ),
+    );
   }
 
   return null;
