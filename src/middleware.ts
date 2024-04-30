@@ -21,14 +21,13 @@ export default auth( (req) => {
   console.log("url pathname in middleware: ", reqUrl.pathname);
   console.log("url hostname in middleware: ", reqUrl.hostname);
   console.log("url VERCEL_URL in middleware: ", process.env.VERCEL_URL);
+  // console.log("url VERCEL_URL in middleware: ", process.env.VERCEL_URL);
+  console.log("url VERCEL_URL in middleware: ", env.NEXTAUTH_URL);
   console.log(
     "env url NEXT_PUBLIC_APP_URL in middleware: ",
     process.env.NEXT_PUBLIC_APP_URL,
   );
-  console.log(
-    "NEXT_PUBLIC_APP_URL in middleware: ",
-    env.NEXT_PUBLIC_APP_URL,
-    );
+  console.log("NEXT_PUBLIC_APP_URL in middleware: ", env.NEXT_PUBLIC_APP_URL);
     
   const isLoggidIn = !!req.auth
   

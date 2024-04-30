@@ -1,4 +1,5 @@
 import { createEnv } from "@t3-oss/env-nextjs";
+import { vercel } from "@t3-oss/env-nextjs/presets";
 import { z } from "zod";
 
 export const env = createEnv({
@@ -6,6 +7,7 @@ export const env = createEnv({
    * Specify your server-side environment variables schema here. This way you can ensure the app
    * isn't built with invalid env vars.
    */
+  extends: [vercel],
   server: {
     DATABASE_URL: z.string().url(),
     NODE_ENV: z
@@ -27,8 +29,7 @@ export const env = createEnv({
     DISCORD_CLIENT_SECRET: z.string(),
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
-    GITHUB_CLIENT_ID: z.string(),
-    GITHUB_CLIENT_SECRET: z.string(),
+
     STRIPE_SECRET_KEY: z.string(),
     STRIPE_WEBHOOK_SECRET: z.string(),
     STRIPE_WEBHOOK_SECRET_LIVE: z.string(),
@@ -82,9 +83,8 @@ export const env = createEnv({
     REPLICATE_API_TOKEN: process.env.REPLICATE_API_TOKEN,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     NEXT_PUBLIC_APP_URL: process.env.PUBLIC_APP_URL,
-    GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
-    GITHUB_CLIENT_SECRET: process.env.GITHUB_CLIENT_SECRET,
   },
+
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
    * useful for Docker builds.
@@ -96,3 +96,11 @@ export const env = createEnv({
    */
   emptyStringAsUndefined: true,
 });
+
+console.log("NEXT_PUBLIC_APP_URL", env.NEXT_PUBLIC_APP_URL);
+console.log("NEXTAUTH_URL", env.NEXTAUTH_URL);
+console.log("NEXTAUTH_SECRET", env.NEXTAUTH_SECRET);
+console.log("NODE_ENV", env.NODE_ENV);
+console.log("VERCEL", env.VERCEL);
+console.log("VERCEL_URL", env.VERCEL_URL);
+console.log("VERCEL_GIT_REPO_OWNER", env.VERCEL_GIT_REPO_OWNER);
