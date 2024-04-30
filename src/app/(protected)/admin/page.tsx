@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { api } from "@/trpc/react"
 import { UserRole } from "@prisma/client"
-import { TRPCError } from "@trpc/server"
 import {toast} from 'sonner'
 
 export default  function Page() {

@@ -4,10 +4,10 @@ import Credentials from "next-auth/providers/credentials";
 import Discord from "next-auth/providers/discord";
 
 import bcrypt from "bcryptjs";
-import { getUserByEmail, getUserById } from "@/data/user";
+import { getUserByEmail } from "@/data/user";
 import { LoginSchema } from "@/schemas";
 
-import type { DefaultSession, NextAuthConfig } from "next-auth";
+import type {  NextAuthConfig } from "next-auth";
 import { env } from "@/env";
 
 export default {
@@ -20,10 +20,10 @@ export default {
       clientId: env.GOOGLE_CLIENT_ID,
       clientSecret: env.GOOGLE_CLIENT_SECRET,
     }),
-    // GitHub({
-    //   clientId: env.GOOGLE_CLIENT_ID,
-    //   clientSecret: env.GOOGLE_CLIENT_SECRET,
-    // }),
+    GitHub({
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+    }),
     Credentials({
       authorize: async (credentials) => {
         const validatedFields = LoginSchema.safeParse(credentials);

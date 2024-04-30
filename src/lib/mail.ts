@@ -1,6 +1,5 @@
 import { env } from '@/env'
 import {Resend} from 'resend'
-import { getBaseUrl } from './urls'
 
 const resend = new Resend(env.RESEND_API_KEY)
 
@@ -14,7 +13,7 @@ export const sendTwoFactorEmail = async (email: string, token: string) => {
   });
 };
 export const sendPasswordResetEmail = async (email: string, token: string) => {
-  const ResetLink = `${env.NEXT_PUBLIC_APP_URL}/auth/new-password?token=${token}`;
+  const ResetLink = `${env.NEXT_PUBLIC_VERCEL_URL}/auth/new-password?token=${token}`;
   // console.log('Confirmation linke: ',confirmationLink)
   await resend.emails.send({
     from: "onboarding@resend.dev",
@@ -28,7 +27,7 @@ export const sendVerificationEmail = async(
   email: string,
   token: string
 ) => {
-  const confirmationLink = `${env.NEXT_PUBLIC_APP_URL}/auth/new-verification?token=${token}`;
+  const confirmationLink = `${env.NEXT_PUBLIC_VERCEL_URL}/auth/new-verification?token=${token}`;
   // console.log('Confirmation linke: ',confirmationLink)
   await resend.emails.send({
     from: "onboarding@resend.dev",

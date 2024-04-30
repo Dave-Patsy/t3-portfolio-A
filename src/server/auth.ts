@@ -2,7 +2,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import { type Adapter } from "next-auth/adapters";
 // import { env } from "@/env";
 import { db } from "@/server/db";
-import { type JWT } from "next-auth/jwt";
+import { type DefaultJWT } from "next-auth/jwt";
 import NextAuth, { type DefaultSession } from "next-auth";
 import authConfig from "./auth.config";
 import { getUserById } from "@/data/user";
@@ -112,11 +112,11 @@ declare module "next-auth" {
 
 declare module "next-auth/jwt" {
   /** Returned by the `jwt` callback and `auth`, when using JWT sessions */
-  interface JWT {
+  interface JWT extends DefaultJWT {
     /** OpenID ID Token */
     role?: UserRole;
-    isTwoFactorEnabled?:boolean
-    isOAuth: boolean
+    isTwoFactorEnabled?: boolean;
+    isOAuth: boolean;
   }
 }
 
