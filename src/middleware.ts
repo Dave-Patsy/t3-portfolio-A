@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import authConfig from "./server/auth.config";
 import NextAuth from "next-auth";
 
