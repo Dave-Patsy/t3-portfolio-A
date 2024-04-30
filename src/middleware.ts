@@ -27,7 +27,7 @@ export default auth( (req) => {
     "env url NEXT_PUBLIC_APP_URL in middleware: ",
     process.env.NEXT_PUBLIC_APP_URL,
   );
-  console.log("NEXT_PUBLIC_APP_URL in middleware: ", env.NEXT_PUBLIC_APP_URL);
+  console.log("NEXT_PUBLIC_APP_URL in middleware: ", env.NEXT_PUBLIC_VERCEL_URL);
     
   const isLoggidIn = !!req.auth
   
@@ -46,7 +46,7 @@ export default auth( (req) => {
   if (isAuthRoute) {
     if(isLoggidIn){
       return Response.redirect(
-        new URL(DEFAULT_LOGIN_REDIRECT, process.env.NEXT_PUBLIC_APP_URL),
+        new URL(DEFAULT_LOGIN_REDIRECT, env.NEXT_PUBLIC_VERCEL_URL as string),
       );
     }
     return null
@@ -64,7 +64,7 @@ export default auth( (req) => {
     // const encodedCallbackUrl = encodeURIComponent(callbackUrl)
 
     return Response.redirect(
-      new URL("/auth/login", process.env.NEXT_PUBLIC_APP_URL),
+      new URL("/auth/login", env.NEXT_PUBLIC_VERCEL_URL as string),
     );
   }
 

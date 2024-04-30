@@ -49,7 +49,7 @@ export const env = createEnv({
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
     NEXT_PUBLIC_PUBLISHABLE_KEY: z.string(),
     NEXT_PUBLIC_LIVEKIT_URL: z.string(),
-    NEXT_PUBLIC_APP_URL: z.preprocess(
+    NEXT_PUBLIC_VERCEL_URL: z.preprocess(
       // This makes Vercel deployments not fail if you don't set NEXTAUTH_URL
       // Since NextAuth.js automatically uses the VERCEL_URL if present.
       (str) => process.env.NEXT_PUBLIC_VERCEL_URL ?? str,
@@ -97,7 +97,7 @@ export const env = createEnv({
   emptyStringAsUndefined: true,
 });
 
-console.log("NEXT_PUBLIC_APP_URL", env.NEXT_PUBLIC_APP_URL);
+console.log("NEXT_PUBLIC_APP_URL", env.NEXT_PUBLIC_VERCEL_URL);
 console.log("NEXTAUTH_URL", env.NEXTAUTH_URL);
 console.log("NEXTAUTH_SECRET", env.NEXTAUTH_SECRET);
 console.log("NODE_ENV", env.NODE_ENV);
