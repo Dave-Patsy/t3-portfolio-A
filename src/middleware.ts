@@ -20,6 +20,7 @@ export default auth( (req) => {
   console.log("url in middleware: ", reqUrl);
   console.log("url pathname in middleware: ", reqUrl.pathname);
   console.log("url hostname in middleware: ", reqUrl.hostname);
+  console.log("url VERCEL_URL in middleware: ", process.env.VERCEL_URL);
   console.log(
     "NEXT_PUBLIC_APP_URL in middleware: ",
     env.NEXT_PUBLIC_APP_URL,
@@ -35,10 +36,10 @@ export default auth( (req) => {
     return null
   }
 
-  console.log(
-    "auth route redirect: ",
-    new URL(DEFAULT_LOGIN_REDIRECT, reqUrl.hostname),
-  );
+  // console.log(
+  //   "auth route redirect: ",
+  //   new URL(DEFAULT_LOGIN_REDIRECT, reqUrl.hostname),
+  // );
   if (isAuthRoute) {
     if(isLoggidIn){
       return Response.redirect(
@@ -47,10 +48,10 @@ export default auth( (req) => {
     }
     return null
   }
-  console.log(
-    "auth not public redirect: ",
-    new URL("/auth/login", env.NEXT_PUBLIC_APP_URL),
-  );
+  // console.log(
+  //   "auth not public redirect: ",
+  //   new URL("/auth/login", env.NEXT_PUBLIC_APP_URL),
+  // );
   if(!isLoggidIn && !isPublicRoute){
     // let callbackUrl = nextUrl.pathname
     // if(nextUrl.search) {
