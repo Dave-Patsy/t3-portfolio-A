@@ -46,7 +46,7 @@ export default auth( (req) => {
   if (isAuthRoute) {
     if(isLoggidIn){
       return Response.redirect(
-        new URL(DEFAULT_LOGIN_REDIRECT, env.NEXT_PUBLIC_VERCEL_URL as string),
+        new URL(DEFAULT_LOGIN_REDIRECT, env.NEXT_PUBLIC_VERCEL_URL),
       );
     }
     return null
@@ -64,7 +64,7 @@ export default auth( (req) => {
     // const encodedCallbackUrl = encodeURIComponent(callbackUrl)
 
     return Response.redirect(
-      new URL("/auth/login", env.NEXT_PUBLIC_VERCEL_URL as string),
+      new URL("/auth/login", env.NEXT_PUBLIC_VERCEL_URL),
     );
   }
 
