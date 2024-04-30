@@ -37,12 +37,12 @@ export default auth( (req) => {
 
   console.log(
     "auth route redirect: ",
-    new URL(DEFAULT_LOGIN_REDIRECT, env.NEXT_PUBLIC_APP_URL),
+    new URL(DEFAULT_LOGIN_REDIRECT, reqUrl.hostname),
   );
   if (isAuthRoute) {
     if(isLoggidIn){
       return Response.redirect(
-        new URL(DEFAULT_LOGIN_REDIRECT, env.NEXT_PUBLIC_APP_URL),
+        new URL(DEFAULT_LOGIN_REDIRECT, reqUrl.hostname),
       );
     }
     return null
@@ -59,7 +59,7 @@ export default auth( (req) => {
 
     // const encodedCallbackUrl = encodeURIComponent(callbackUrl)
 
-    return Response.redirect(new URL("/auth/login", env.NEXT_PUBLIC_APP_URL));
+    return Response.redirect(new URL("/auth/login", reqUrl.hostname));
   }
 
   return null;
