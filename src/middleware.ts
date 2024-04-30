@@ -23,17 +23,22 @@ export default auth( (req) => {
   console.log(
     "NEXT_PUBLIC_APP_URL in middleware: ",
     env.NEXT_PUBLIC_APP_URL,
-  );
-  
+    );
+    
   const isLoggidIn = !!req.auth
-
+  
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
   const isPublicRoute = publicRoutes.includes(reqUrl.pathname);
   const isAuthRoute = authRoutes.includes(reqUrl.pathname);
-
+  
   if(isApiAuthRoute){
     return null
   }
+
+  console.log(
+    "auth route redirect: ",
+    new URL(DEFAULT_LOGIN_REDIRECT, env.NEXT_PUBLIC_APP_URL),
+  );
   if (isAuthRoute) {
     if(isLoggidIn){
       return Response.redirect(
@@ -42,6 +47,10 @@ export default auth( (req) => {
     }
     return null
   }
+  console.log(
+    "auth not public redirect: ",
+    new URL("/auth/login", env.NEXT_PUBLIC_APP_URL),
+  );
   if(!isLoggidIn && !isPublicRoute){
     // let callbackUrl = nextUrl.pathname
     // if(nextUrl.search) {
