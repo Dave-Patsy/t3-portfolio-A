@@ -22,6 +22,10 @@ export default auth( (req) => {
   console.log("url hostname in middleware: ", reqUrl.hostname);
   console.log("url VERCEL_URL in middleware: ", process.env.VERCEL_URL);
   console.log(
+    "env url NEXT_PUBLIC_APP_URL in middleware: ",
+    process.env.NEXT_PUBLIC_APP_URL,
+  );
+  console.log(
     "NEXT_PUBLIC_APP_URL in middleware: ",
     env.NEXT_PUBLIC_APP_URL,
     );
@@ -43,7 +47,7 @@ export default auth( (req) => {
   if (isAuthRoute) {
     if(isLoggidIn){
       return Response.redirect(
-        new URL(DEFAULT_LOGIN_REDIRECT, reqUrl.hostname),
+        new URL(DEFAULT_LOGIN_REDIRECT, process.env.NEXT_PUBLIC_APP_URL),
       );
     }
     return null
@@ -60,7 +64,9 @@ export default auth( (req) => {
 
     // const encodedCallbackUrl = encodeURIComponent(callbackUrl)
 
-    return Response.redirect(new URL("/auth/login", reqUrl.hostname));
+    return Response.redirect(
+      new URL("/auth/login", process.env.NEXT_PUBLIC_APP_URL),
+    );
   }
 
   return null;
