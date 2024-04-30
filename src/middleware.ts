@@ -15,6 +15,8 @@ const {auth} = NextAuth(authConfig)
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export default auth( (req) => {
+  const thing = req
+  console.log('whole request',thing)
   const {nextUrl, url} = req
   const reqUrl = new URL(url)
   console.log("url in middleware: ", reqUrl);
@@ -39,10 +41,6 @@ export default auth( (req) => {
     return null
   }
 
-  console.log(
-    "auth route redirect: ",
-    new URL(DEFAULT_LOGIN_REDIRECT, env.NEXT_PUBLIC_VERCEL_URL),
-  );
   if (isAuthRoute) {
     if(isLoggidIn){
       return Response.redirect(
@@ -51,10 +49,7 @@ export default auth( (req) => {
     }
     return null
   }
-  console.log(
-    "auth not public redirect: ",
-    new URL("/auth/login", env.NEXT_PUBLIC_VERCEL_URL),
-  );
+
   if(!isLoggidIn && !isPublicRoute){
     // let callbackUrl = nextUrl.pathname
     // if(nextUrl.search) {
