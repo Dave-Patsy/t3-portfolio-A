@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import authConfig from "./server/auth.config";
 import NextAuth from "next-auth";
 
@@ -39,10 +40,10 @@ export default auth( (req) => {
     return null
   }
 
-  // console.log(
-  //   "auth route redirect: ",
-  //   new URL(DEFAULT_LOGIN_REDIRECT, reqUrl.hostname),
-  // );
+  console.log(
+    "auth route redirect: ",
+    new URL(DEFAULT_LOGIN_REDIRECT, env.NEXT_PUBLIC_VERCEL_URL),
+  );
   if (isAuthRoute) {
     if(isLoggidIn){
       return Response.redirect(
@@ -51,10 +52,10 @@ export default auth( (req) => {
     }
     return null
   }
-  // console.log(
-  //   "auth not public redirect: ",
-  //   new URL("/auth/login", env.NEXT_PUBLIC_APP_URL),
-  // );
+  console.log(
+    "auth not public redirect: ",
+    new URL("/auth/login", env.NEXT_PUBLIC_VERCEL_URL),
+  );
   if(!isLoggidIn && !isPublicRoute){
     // let callbackUrl = nextUrl.pathname
     // if(nextUrl.search) {
