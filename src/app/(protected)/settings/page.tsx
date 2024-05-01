@@ -9,10 +9,11 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
+import { useCurrentUser } from "@/hooks/use-current-user";
 import { SettingsSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserRole } from "@prisma/client";
-import { Session } from "next-auth";
+import { type Session } from "next-auth";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
@@ -28,6 +29,9 @@ export default  function Page() {
   const [asd, setAsd] = useState<Session | null>(null);
   const { update: updateSession, data: session } = useSession();
   console.log('session in settings client component',session)
+  const asdasdasd = useCurrentUser()
+  console.log("useCurrentUser in settings client component", asdasdasd);
+  const user = useCurrentUser();
   useEffect(()=>{
     if (!didIinit) {
       getSession().then((data)=>{return setAsd(data)}).catch((e)=> {throw e})
@@ -39,10 +43,10 @@ export default  function Page() {
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
-      name: asd?.user?.name ?? undefined,
-      email: asd?.user?.email ?? undefined,
-      role: asd?.user?.role ?? undefined,
-      isTwoFactorEnabled: asd?.user?.isTwoFactorEnabled ?? undefined,
+      name: user?.name ?? undefined,
+      email: user?.email ?? undefined,
+      role: user?.role ?? undefined,
+      isTwoFactorEnabled: user?.isTwoFactorEnabled ?? undefined,
       newPassword: undefined,
       confirmPassword: undefined,
     },
