@@ -18,13 +18,20 @@ import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import {type z } from "zod";
 
+let didIinit = false
+
 export default  function Page() {
   const router = useRouter()
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const { update: updateSession, data: session } = useSession();
-  if (!session) router.refresh()
-
+  // if (!session) router.refresh()
+  useEffect(()=>{
+    if (!didIinit) {
+      didIinit = true;
+      router.refresh();
+    }
+  },[])
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
