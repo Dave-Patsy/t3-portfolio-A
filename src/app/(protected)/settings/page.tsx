@@ -21,7 +21,7 @@ export default  function Page() {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const { update: updateSession, data: session } = useSession();
-
+  void updateSession();
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
