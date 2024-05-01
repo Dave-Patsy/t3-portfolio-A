@@ -12,7 +12,8 @@ import { Switch } from "@/components/ui/switch";
 import { SettingsSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserRole } from "@prisma/client";
-import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
+import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -24,21 +25,25 @@ export default  function Page() {
   const router = useRouter()
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
+  const [asd, setAsd] = useState<Session | null>(null);
   const { update: updateSession, data: session } = useSession();
+
+  getSession().then((data)=>{return setAsd(data)}).catch((e)=> {throw e})
   // if (!session) router.refresh()
   useEffect(()=>{
     if (!didIinit) {
       didIinit = true;
+      void updateSession();
       router.refresh();
     }
   },[])
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
-      name: session?.user?.name ?? undefined,
-      email: session?.user?.email ?? undefined,
-      role: session?.user?.role ?? undefined,
-      isTwoFactorEnabled: session?.user?.isTwoFactorEnabled ?? undefined,
+      name: asd?.user?.name ?? undefined,
+      email: asd?.user?.email ?? undefined,
+      role: asd?.user?.role ?? undefined,
+      isTwoFactorEnabled: asd?.user?.isTwoFactorEnabled ?? undefined,
       newPassword: undefined,
       confirmPassword: undefined,
     },
