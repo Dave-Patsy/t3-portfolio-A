@@ -13,7 +13,7 @@ import { SettingsSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserRole } from "@prisma/client";
 import { useSession } from "next-auth/react";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import {type z } from "zod";
 
@@ -21,7 +21,11 @@ export default  function Page() {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const { update: updateSession, data: session } = useSession();
-  void updateSession();
+  
+
+  useEffect(() => {
+    void updateSession();
+  }, [updateSession]);
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
