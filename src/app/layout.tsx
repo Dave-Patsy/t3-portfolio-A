@@ -24,7 +24,6 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  console.log("next auth url",env.NEXTAUTH_URL)
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>

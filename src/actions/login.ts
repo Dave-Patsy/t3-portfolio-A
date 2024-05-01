@@ -14,95 +14,93 @@ import { getTwoFactorConfirmationByUser } from '@/data/two-factor-confirmation';
 
 
 
-export const login = async (values: z.infer<typeof LoginSchema>) => {
-  const validatedFields = LoginSchema.safeParse(values)
-  if(!validatedFields.success){
-    return {error:"Invalid fields"}
+export const login = async (
+  values: z.infer<typeof LoginSchema>,
+  callbackUrl?: string | null,
+) => {
+  const validatedFields = LoginSchema.safeParse(values);
+  if (!validatedFields.success) {
+    return { error: "Invalid fields" };
   }
-  const  {email,password,code} = validatedFields.data
+  const { email, password, code } = validatedFields.data;
 
-  const existingUser = await getUserByEmail(email)
+  const existingUser = await getUserByEmail(email);
 
-  if( !existingUser?.email || !existingUser.password){
-    return {error:'Email does not exist'}
+  // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
+  if (!existingUser || !existingUser.email || !existingUser.password)
+    return { error: "Email does not exists!" };
+
+  if (!existingUser.emailVerified) {
+    const verificationToken = await generateVerificationToken(
+      existingUser.email,
+    );
+    await sendVerificationEmail(verificationToken.email, verificationToken.token);
+    return { success: "Confirmation email sent" };
   }
 
-  if(!existingUser.emailVerified){
-    const verificationToken = await generateVerificationToken(existingUser.email)
-    await sendVerificationEmail("dgwh1995@gmail.com", verificationToken.token);
-    return {success:'Confirmation email sent'}
-  }
+  if (existingUser.isTwoFactorEnabled && existingUser.email) {
+    if (code) {
+      const twoFactorToken = await getTwoFactorTokenByEmail(existingUser.email);
 
-  if(existingUser.isTwoFactorEnabled && existingUser.email){
-
-    if(code){
-      const twoFactorToken = await getTwoFactorTokenByEmail(existingUser.email)
-
-      if(!twoFactorToken){
-        return {error:'Invalid code'}
+      if (!twoFactorToken) {
+        return { error: "Invalid code" };
       }
 
-      if(twoFactorToken.token !== code) {
+      if (twoFactorToken.token !== code) {
         return { error: "Invalid code" };
       }
 
       const hasExpired = new Date(twoFactorToken.expires) < new Date();
 
-      if(hasExpired){
-        return {error: 'Code has expired!'}
+      if (hasExpired) {
+        return { error: "Code has expired!" };
       }
 
       await db.twoFactorToken.delete({
-        where:{id:twoFactorToken.id}
-      })
+        where: { id: twoFactorToken.id },
+      });
 
-      const existingConfirmation = await getTwoFactorConfirmationByUser(existingUser.id)
+      const existingConfirmation = await getTwoFactorConfirmationByUser(
+        existingUser.id,
+      );
 
-      if(existingConfirmation){
+      if (existingConfirmation) {
         await db.twoFactorConfirmation.delete({
-          where:{id:existingConfirmation.id}
-        })
+          where: { id: existingConfirmation.id },
+        });
       }
 
       await db.twoFactorConfirmation.create({
-        data:{
-          userId:existingUser.id
-        }
-      })
-    }else{
+        data: {
+          userId: existingUser.id,
+        },
+      });
+    } else {
+      const twoFactorToken = await generateTwoFactorToken(existingUser.email);
+      await sendTwoFactorEmail(twoFactorToken.email, twoFactorToken.token);
 
-      const twoFactorToken = await generateTwoFactorToken(existingUser.email)
-      await sendTwoFactorEmail(
-        "dgwh1995@gmail.com",
-        twoFactorToken.token
-      )
-  
-      return {twoFactor:true}
+      return { twoFactor: true };
     }
-
   }
 
-  try{
+  try {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT
+      redirectTo: callbackUrl ?? DEFAULT_LOGIN_REDIRECT,
     });
-
   } catch (error) {
-    if(error instanceof AuthError){
-      switch (error.type){
-        case 'CredentialsSignin':
-          return {error:'Invalid credentials!'}
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return { error: "Invalid credentials!" };
         default:
-          return {error:'Something went wrong!'}
-
+          return { error: "Something went wrong!" };
       }
     }
-    throw error
+    throw error;
   }
 
   return { success: "Success!" };
-  
-}
+};
 
