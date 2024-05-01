@@ -106,8 +106,6 @@ export default function RegisterForm() {
                   <FormLabel>Password</FormLabel>
                   <FormControl>
                     <div className='flex flex-row items-center justify-center'>
-
-
                       <Input
                         {...field}
                         disabled={isPending}
