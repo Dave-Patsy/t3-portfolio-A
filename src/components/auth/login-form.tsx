@@ -62,14 +62,15 @@ export default function LoginForm() {
           }
           if (data.success) {
             form.reset();
+            void update();
             setSuccess(data?.success);
           }
           if (data?.twoFactor) {
             setShowTwoFactor(true);
           }
         })
-        .catch((e) => setError(JSON.stringify(e)))
-        .finally(()=> void update());
+        // .finally(()=> void update());
+        // .catch((e) => setError(JSON.stringify(e)))
     })
   }
 
