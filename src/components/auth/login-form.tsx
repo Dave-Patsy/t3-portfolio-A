@@ -21,13 +21,15 @@ import { login } from '@/actions/login'
 import FormSuccess from '../form-success'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import { useSession } from 'next-auth/react'
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showTwoFactor, setShowTwoFactor] = useState<boolean >(false);
   const [error, setError] = useState<string | undefined>("")
   const [success, setSuccess] = useState<string | undefined>("")
-
+  const {update} = useSession()
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
   const paramsError =
@@ -66,7 +68,8 @@ export default function LoginForm() {
             setShowTwoFactor(true);
           }
         })
-        .catch(() => setError("Something went wrong"));
+        .catch((e) => setError(JSON.stringify(e)))
+        .finally(()=> void update());
     })
   }
 
@@ -130,13 +133,26 @@ export default function LoginForm() {
                     <FormItem>
                       <FormLabel>Password</FormLabel>
                       <FormControl>
-                        <Input
-                          {...field}
-                          disabled={isPending}
-                          placeholder="******"
-                          type="password"
-                          autoComplete="current-password"
-                        />
+                        <div className="flex flex-row items-center justify-center">
+                          <Input
+                            {...field}
+                            disabled={isPending}
+                            type={showPassword ? "text" : "password"}
+                            placeholder="********"
+                            autoComplete="current-password"
+                          />
+                          {showPassword ? (
+                            <FaEyeSlash
+                              className="ml-2 h-6 w-6 text-gray-400"
+                              onClick={toogleShowPassword}
+                            />
+                          ) : (
+                            <FaEye
+                              className="ml-2 h-6 w-6 text-gray-400"
+                              onClick={toogleShowPassword}
+                            />
+                          )}
+                        </div>
                       </FormControl>
                       <Button
                         asChild
@@ -156,7 +172,7 @@ export default function LoginForm() {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" className="w-full" disabled={isPending}>
-            {showTwoFactor ? 'Confirm' : 'Login'}
+            {showTwoFactor ? "Confirm" : "Login"}
           </Button>
         </form>
       </Form>
