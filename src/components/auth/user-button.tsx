@@ -14,16 +14,16 @@ export default function UserButton() {
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
-          <AvatarImage src={user?.image ?? ''}/>
+          <AvatarImage src={user?.image ?? ""} />
           <AvatarFallback className="bg-sky-500">
-            <FaUser className="text-white"/>
+            <FaUser className="text-white" />
           </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="end">
         <LogoutButton>
           <DropdownMenuItem>
-            <ExitIcon className="h-4 w-4 mr-2"/>
+            <ExitIcon className="mr-2 h-4 w-4" />
             Logout
           </DropdownMenuItem>
         </LogoutButton>

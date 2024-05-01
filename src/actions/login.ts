@@ -1,5 +1,5 @@
 'use server'
-import { getTwoFactorTokenByEmail, getTwoFactorTokenByToken } from '@/data/two-factor-token';
+import { getTwoFactorTokenByEmail } from '@/data/two-factor-token';
 import { generateTwoFactorToken } from './../lib/tokens';
 import { getUserByEmail } from '@/data/user';
 import { sendTwoFactorEmail, sendVerificationEmail } from '@/lib/mail';

@@ -7,35 +7,18 @@ import {
   authRoutes,
   publicRoutes,
 } from "./routes";
-import { env } from "./env";
-
 
 const {auth} = NextAuth(authConfig)
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export default auth( (req) => {
-  const thing = req
-  console.log('whole request',thing)
-  const {nextUrl, url} = req
-  const reqUrl = new URL(url)
-  console.log("url in middleware: ", reqUrl);
-  console.log("url pathname in middleware: ", reqUrl.pathname);
-  console.log("url hostname in middleware: ", reqUrl.hostname);
-  console.log("url VERCEL_URL in middleware: ", process.env.VERCEL_URL);
-  // console.log("url VERCEL_URL in middleware: ", process.env.VERCEL_URL);
-  console.log("url VERCEL_URL in middleware: ", env.NEXTAUTH_URL);
-  console.log(
-    "env url NEXT_PUBLIC_APP_URL in middleware: ",
-    process.env.NEXT_PUBLIC_APP_URL,
-  );
-  console.log("NEXT_PUBLIC_APP_URL in middleware: ", env.NEXT_PUBLIC_VERCEL_URL);
-    
+  const {nextUrl} = req
   const isLoggidIn = !!req.auth
   
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-  const isPublicRoute = publicRoutes.includes(reqUrl.pathname);
-  const isAuthRoute = authRoutes.includes(reqUrl.pathname);
+  const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+  const isAuthRoute = authRoutes.includes(nextUrl.pathname);
   
   if(isApiAuthRoute){
     return null
@@ -49,18 +32,18 @@ export default auth( (req) => {
   }
 
   if(!isLoggidIn && !isPublicRoute){
-    // let callbackUrl = nextUrl.pathname
-    // if(nextUrl.search) {
-    //   callbackUrl += nextUrl.search
-    // }
-
-    // const encodedCallbackUrl = encodeURIComponent(callbackUrl)
-
-    return Response.redirect(new URL("/auth/login", nextUrl));
+    let callbackUrl = nextUrl.pathname;
+    if (nextUrl.search) {
+      callbackUrl += nextUrl.search;
+    }
+    const encodedCallbackUrl = encodeURIComponent(callbackUrl);
+    return Response.redirect(
+      new URL(`/auth/login?callbackUrl${encodedCallbackUrl}`, nextUrl),
+    );
   }
 
   return null;
-  // console.log("ROUTE: ", req.nextUrl.pathname)
+
 })
 
 export const config = {

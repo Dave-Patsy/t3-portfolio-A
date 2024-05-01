@@ -18,6 +18,7 @@ export default function NewVerificationForm() {
   const [success, setSuccess] = useState<string | undefined>()
 
   const onSubmit = useCallback(()=>{
+
     if(!token){
       setError("Missing token");
       return
@@ -27,9 +28,9 @@ export default function NewVerificationForm() {
       setError(data.error)
       setSuccess(data.success)
     })
-    .catch(()=>{
-      setError("something went wrong")
-    })
+    // .catch(()=>{
+    //   setError("something went wrong")
+    // })
   },[token] )
 
   useEffect(()=>{

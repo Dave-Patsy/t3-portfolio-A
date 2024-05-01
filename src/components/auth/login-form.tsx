@@ -20,12 +20,20 @@ import FormError from '../form-error'
 import { login } from '@/actions/login'
 import FormSuccess from '../form-success'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 
 export default function LoginForm() {
-
+  const [showPassword, setShowPassword] = useState(false);
   const [showTwoFactor, setShowTwoFactor] = useState<boolean >(false);
   const [error, setError] = useState<string | undefined>("")
   const [success, setSuccess] = useState<string | undefined>("")
+
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
+  const paramsError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Email already in use with different provider!"
+      : "";
 
   const [isPending, startTransition] = useTransition()
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -36,26 +44,29 @@ export default function LoginForm() {
     }
   })
   
+  const toogleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
   const onSubmit = (values: z.infer<typeof LoginSchema>) =>{
     setError("")
     setSuccess("")
     
     startTransition(()=>{
-      void login(values).then((data) => {
-        if(data.error){
-          form.reset()
-          setError(data?.error)
-        }
-        if(data.success){
-          form.reset();
-          setSuccess(data?.success);
-
-        }
-        if(data?.twoFactor){
-          setShowTwoFactor(true)
-        }
-      })
-      .catch(()=>setError('Something went wrong'))
+      void login(values, callbackUrl)
+        .then((data) => {
+          if (data.error) {
+            form.reset();
+            setError(data?.error);
+          }
+          if (data.success) {
+            form.reset();
+            setSuccess(data?.success);
+          }
+          if (data?.twoFactor) {
+            setShowTwoFactor(true);
+          }
+        })
+        .catch(() => setError("Something went wrong"));
     })
   }
 

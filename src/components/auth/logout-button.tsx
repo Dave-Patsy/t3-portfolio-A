@@ -2,16 +2,19 @@
 
 import { logout } from "@/actions/logout"
 import {type ReactNode } from "react"
+import { Button } from "../ui/button"
 
 interface LogoutButtonProps {
   children?:ReactNode
 }
 
 export default function LogoutButton({children}:LogoutButtonProps) {
-  const onClick = () => {
-    void logout()
-  }
+  const handleLogout = () => {
+    void logout();
+  };
   return (
-    <span onClick={onClick} className="cursor-pointer flex items-center">{children}</span>
-  )
+    <Button variant="outline" onClick={handleLogout}>
+      {children}
+    </Button>
+  );
 }

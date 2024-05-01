@@ -15,52 +15,48 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   session: { strategy: "jwt" },
   pages: {
     signIn: "/auth/login",
-    // signOut: '/',
     error: "/auth/error",
   },
   adapter: PrismaAdapter(db) as Adapter,
   events: {
     async linkAccount({ user }) {
-      console.log("linked user: ", user);
       await db.user.update({
         where: { id: user.id },
         data: { emailVerified: new Date() },
       });
-      console.log('linked user: ', user)
     },
   },
   
   callbacks: {
     async signIn({user,account}){
       if(account?.provider !== 'credentials') return true
+      
       const existingUser = await getUserById(user.id!)
-
-      if(!existingUser?.emailVerified) return false
+      // eslint-disable-next-line @typescript-eslint/prefer-optional-chain
+      if (!existingUser || !existingUser?.emailVerified) return false;
 
       
       if(existingUser.isTwoFactorEnabled){
         const twoFactorConfirmation = await getTwoFactorConfirmationByUser(existingUser.id)
-
         if(!twoFactorConfirmation) return false
+
         await db.twoFactorConfirmation.delete({
           where:{id:twoFactorConfirmation.id}
         })
       }
-
       return true
     },
     async session({ session, token }) {
+      
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }
 
       if (token.role && session.user) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         session.user.role = token.role;
       }
       
       if (session.user) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled;
       }
 
@@ -74,6 +70,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async jwt({ token }) {
       if (!token.sub) return token;
+
       const existingUser = await getUserById(token.sub);
       if (!existingUser) return token;
 

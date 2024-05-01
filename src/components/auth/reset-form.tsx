@@ -23,9 +23,9 @@ import { reset } from "@/actions/reset";
 import { Button } from "../ui/button";
 
 export default function ResetForm() {
-  
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
+
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof ResetSchema>>({
@@ -52,11 +52,10 @@ export default function ResetForm() {
       headerLabel="Reset you password"
       backButtonLabel={`Back to login?`}
       backButtonHref="/auth/login"
-      // showSocial
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div>
+          <div className="space-y-4">
             <FormField
               control={form.control}
               name="email"
@@ -80,7 +79,7 @@ export default function ResetForm() {
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" className="w-full" disabled={isPending}>
-            Resetemail sent!
+            Request reset!
           </Button>
         </form>
       </Form>

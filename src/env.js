@@ -100,11 +100,3 @@ export const env = createEnv({
    */
   emptyStringAsUndefined: true,
 });
-
-console.log("NEXT_PUBLIC_VERCEL_URL", env.NEXT_PUBLIC_VERCEL_URL);
-console.log("NEXTAUTH_URL", env.NEXTAUTH_URL);
-console.log("NEXTAUTH_SECRET", env.NEXTAUTH_SECRET);
-console.log("NODE_ENV", env.NODE_ENV);
-console.log("VERCEL", env.VERCEL);
-console.log("VERCEL_URL", env.VERCEL_URL);
-console.log("VERCEL_GIT_REPO_OWNER", env.VERCEL_GIT_REPO_OWNER);

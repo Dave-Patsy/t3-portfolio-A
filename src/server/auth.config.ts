@@ -35,7 +35,6 @@ export default {
           if (!user) return null;
           if (!user.password) return null;
 
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           const passwordsMatch = await bcrypt.compare(password, user.password);
 
           if (passwordsMatch) return user;

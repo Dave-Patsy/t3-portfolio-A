@@ -19,8 +19,10 @@ import { Button } from "../ui/button";
 import FormError from "../form-error";
 import { register } from "@/actions/register";
 import FormSuccess from "../form-success";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function RegisterForm() {
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
@@ -34,6 +36,9 @@ export default function RegisterForm() {
       confirmPassword:''
     },
   });
+  const toogleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
     setError("");
@@ -100,12 +105,27 @@ export default function RegisterForm() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="******"
-                      type="password"
-                    />
+                    <div className='flex flex-row items-center justify-center'>
+
+
+                      <Input
+                        {...field}
+                        disabled={isPending}
+                        placeholder="******"
+                        type={showPassword ? "text" : "password"}
+                      />
+                      {showPassword ? (
+                        <FaEyeSlash
+                          className="ml-2 h-6 w-6 text-gray-400"
+                          onClick={toogleShowPassword}
+                        />
+                      ) : (
+                        <FaEye
+                          className="ml-2 h-6 w-6 text-gray-400"
+                          onClick={toogleShowPassword}
+                        />
+                      )}
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -118,12 +138,26 @@ export default function RegisterForm() {
                 <FormItem>
                   <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="******"
-                      type="password"
-                    />
+                    <div className='flex flex-row items-center justify-center'>
+
+                      <Input
+                        {...field}
+                        disabled={isPending}
+                        placeholder="******"
+                        type={showPassword ? "text" : "password"}
+                      />
+                      {showPassword ? (
+                        <FaEyeSlash
+                          className="ml-2 h-6 w-6 text-gray-400"
+                          onClick={toogleShowPassword}
+                        />
+                      ) : (
+                        <FaEye
+                          className="ml-2 h-6 w-6 text-gray-400"
+                          onClick={toogleShowPassword}
+                        />
+                      )}
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

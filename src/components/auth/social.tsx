@@ -15,7 +15,7 @@ export default function Social() {
         variant={"outline"}
         onClick={() => signIn("google")}
       >
-        <FcGoogle />
+        <FcGoogle className="h-6 w-6" />
       </Button>
       <Button
         size={"lg"}
@@ -23,7 +23,7 @@ export default function Social() {
         variant={"outline"}
         onClick={() => signIn("github")}
       >
-        <FaGithub />
+        <FaGithub className="h-6 w-6" />
       </Button>
       <Button
         size={"lg"}
@@ -31,7 +31,7 @@ export default function Social() {
         variant={"outline"}
         onClick={() => signIn("discord")}
       >
-        <FaDiscord />
+        <FaDiscord className="h-6 w-6" />
       </Button>
     </div>
   );

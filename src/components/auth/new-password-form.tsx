@@ -20,11 +20,13 @@ import FormError from "../form-error";
 import FormSuccess from "../form-success";
 import { useSearchParams } from "next/navigation";
 import { newPassword } from "@/actions/new-password";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function NewPasswordForm() {
   const searchParams = useSearchParams()
   const token = searchParams.get('token')
 
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
@@ -36,6 +38,10 @@ export default function NewPasswordForm() {
       confirmPassword: "",
     },
   });
+
+  const toogleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
     setError("");
@@ -58,7 +64,7 @@ export default function NewPasswordForm() {
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div>
+          <div className="space-y-4">
             <FormField
               control={form.control}
               name="password"
@@ -66,13 +72,26 @@ export default function NewPasswordForm() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="******"
-                      type="password"
-                      autoComplete="new-password"
-                    />
+                    <div className="flex flex-row items-center justify-center">
+                      <Input
+                        {...field}
+                        disabled={isPending}
+                        placeholder="******"
+                        type={showPassword ? "text" : "password"}
+                        autoComplete="new-password"
+                      />
+                      {showPassword ? (
+                        <FaEyeSlash
+                          className="ml-2 h-6 w-6 text-gray-400"
+                          onClick={toogleShowPassword}
+                        />
+                      ) : (
+                        <FaEye
+                          className="ml-2 h-6 w-6 text-gray-400"
+                          onClick={toogleShowPassword}
+                        />
+                      )}
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -85,12 +104,26 @@ export default function NewPasswordForm() {
                 <FormItem>
                   <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      placeholder="******"
-                      type="password"
-                    />
+                    <div className="flex flex-row items-center justify-center">
+                      <Input
+                        {...field}
+                        disabled={isPending}
+                        placeholder="******"
+                        type={showPassword ? "text" : "password"}
+                        autoComplete="off"
+                      />
+                      {showPassword ? (
+                        <FaEyeSlash
+                          className="ml-2 h-6 w-6 text-gray-400"
+                          onClick={toogleShowPassword}
+                        />
+                      ) : (
+                        <FaEye
+                          className="ml-2 h-6 w-6 text-gray-400"
+                          onClick={toogleShowPassword}
+                        />
+                      )}
+                    </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>

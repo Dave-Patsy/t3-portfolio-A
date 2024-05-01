@@ -9,7 +9,6 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, For
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { useCurrentUser } from "@/hooks/use-current-user";
 import { SettingsSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserRole } from "@prisma/client";
@@ -21,32 +20,32 @@ import {type z } from "zod";
 export default  function Page() {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
-
-  const user = useCurrentUser()
+  const { update: updateSession, data: session } = useSession();
 
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
-      name: user?.name ?? undefined,
-      email: user?.email ?? undefined,
-      role: user?.role ?? undefined,
-      isTwoFactorEnabled: user?.isTwoFactorEnabled ?? undefined,
-      newPassword:  undefined,
-      confirmPassword:  undefined,
+      name: session?.user?.name ?? undefined,
+      email: session?.user?.email ?? undefined,
+      role: session?.user?.role ?? undefined,
+      isTwoFactorEnabled: session?.user?.isTwoFactorEnabled ?? undefined,
+      newPassword: undefined,
+      confirmPassword: undefined,
     },
   });
 
   const [isPending, startTransition] = useTransition();
-  const {update} = useSession()
 
   const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
+    setError("");
+    setSuccess("");
     startTransition(() => {
       void settings(values).then((data) => {
         if(data.error){
           setError(data.error)
         }
         if(data.success){
-          void update();
+          void updateSession();
           setSuccess(data.success)
         } 
       })
@@ -82,7 +81,7 @@ export default  function Page() {
                     </FormItem>
                   )}
                 />
-                {user?.isOAuth === false && (
+                {session?.user.isOAuth === false && (
                   <>
                     <FormField
                       control={form.control}

@@ -9,7 +9,7 @@ export const getUserByEmail = async (email: string) =>{
       }
     })
     return user
-  }catch{null;}
+  }catch {return null;}
 }
 export const getUserById= async (id: string) =>{
   try{
@@ -19,5 +19,5 @@ export const getUserById= async (id: string) =>{
       }
     })
     return user
-  }catch{null;}
+  }catch{return null;}
 }
