@@ -1,3 +1,4 @@
+import 'server-only'
 import { auth } from "@/server/auth"
 import { SessionProvider } from "next-auth/react"
 import type { ReactNode } from "react"

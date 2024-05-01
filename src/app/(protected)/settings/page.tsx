@@ -27,7 +27,7 @@ export default  function Page() {
   const [success, setSuccess] = useState<string | undefined>("");
   const [asd, setAsd] = useState<Session | null>(null);
   const { update: updateSession, data: session } = useSession();
-
+  console.log('session in settings client component',session)
   useEffect(()=>{
     if (!didIinit) {
       getSession().then((data)=>{return setAsd(data)}).catch((e)=> {throw e})
