@@ -1,41 +1,62 @@
-'use client'
+"use client";
 
 import { settings } from "@/actions/settings";
 import FormError from "@/components/form-error";
 import FormSuccess from "@/components/form-success";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { SettingsSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserRole } from "@prisma/client";
-import { Session } from "next-auth";
+import {type Session } from "next-auth";
 import { getSession, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import {type z } from "zod";
+import { type z } from "zod";
 
-let didIinit = false
+let didIinit = false;
 
-export default  function Page() {
-  const router = useRouter()
+export default function Test() {
+  const router = useRouter();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [asd, setAsd] = useState<Session | null>(null);
   const { update: updateSession, data: session } = useSession();
 
-  useEffect(()=>{
+  getSession()
+    .then((data) => {
+      return setAsd(data);
+    })
+    .catch((e) => {
+      throw e;
+    });
+  // if (!session) router.refresh()
+  useEffect(() => {
     if (!didIinit) {
-      getSession().then((data)=>{return setAsd(data)}).catch((e)=> {throw e})
       didIinit = true;
       void updateSession();
       router.refresh();
     }
-  },[])
+  }, [router, updateSession]);
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
@@ -54,16 +75,17 @@ export default  function Page() {
     setError("");
     setSuccess("");
     startTransition(() => {
-      void settings(values).then((data) => {
-        if(data.error){
-          setError(data.error)
-        }
-        if(data.success){
-          void updateSession();
-          setSuccess(data.success)
-        } 
-      })
-      .catch(()=>setError("Something went wrong!"))
+      void settings(values)
+        .then((data) => {
+          if (data.error) {
+            setError(data.error);
+          }
+          if (data.success) {
+            void updateSession();
+            setSuccess(data.success);
+          }
+        })
+        .catch(() => setError("Something went wrong!"));
     });
   };
 
