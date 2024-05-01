@@ -70,7 +70,7 @@ export default  function Page() {
       .catch(()=>setError("Something went wrong!"))
     });
   };
-
+  
   return (
     <div className="">
       <Card className="w-[600px]">
