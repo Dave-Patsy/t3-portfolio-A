@@ -26,51 +26,33 @@ import { Switch } from "@/components/ui/switch";
 import { SettingsSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserRole } from "@prisma/client";
-import {type Session } from "next-auth";
-import { getSession, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
+import { type Session } from "next-auth";
+import {  useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
 
-let didIinit = false;
+interface SettingsProps {
+  session: Session | null;
+}
 
-export default function Test() {
-  const router = useRouter();
+export default function Test({ session }: SettingsProps) {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
-  const [asd, setAsd] = useState<Session | null>(null);
-  const { update: updateSession, data: session } = useSession();
 
-  getSession()
-    .then((data) => {
-      return setAsd(data);
-    })
-    .catch((e) => {
-      throw e;
-    });
-  // if (!session) router.refresh()
-  useEffect(() => {
-    if (!didIinit) {
-      didIinit = true;
-      void updateSession();
-      router.refresh();
-    }
-  }, [router, updateSession]);
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
-      name: asd?.user?.name ?? undefined,
-      email: asd?.user?.email ?? undefined,
-      role: asd?.user?.role ?? undefined,
-      isTwoFactorEnabled: asd?.user?.isTwoFactorEnabled ?? undefined,
+      name: session?.user?.name ?? undefined,
+      email: session?.user?.email ?? undefined,
+      role: session?.user?.role ?? undefined,
+      isTwoFactorEnabled: session?.user?.isTwoFactorEnabled ?? undefined,
       newPassword: undefined,
       confirmPassword: undefined,
     },
   });
 
   const [isPending, startTransition] = useTransition();
-
+  if(!session) return <span>{`You are not logged in :( `}</span>
   const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
     setError("");
     setSuccess("");
@@ -81,7 +63,6 @@ export default function Test() {
             setError(data.error);
           }
           if (data.success) {
-            void updateSession();
             setSuccess(data.success);
           }
         })
