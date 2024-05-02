@@ -27,7 +27,7 @@ export default  function Page() {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [asd, setAsd] = useState<Session | null>(null);
-  const { update: updateSession, data: session } = useSession();
+  const { update: updateSession, data:session, status } = useSession();
   console.log('session in settings client component',session)
   const asdasdasd = useCurrentUser()
   console.log("useCurrentUser in settings client component", asdasdasd);
@@ -70,7 +70,7 @@ export default  function Page() {
       .catch(()=>setError("Something went wrong!"))
     });
   };
-  
+  if(status !== 'authenticated') return null
   return (
     <div className="">
       <Card className="w-[600px]">

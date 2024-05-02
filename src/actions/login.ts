@@ -6,8 +6,8 @@ import { sendTwoFactorEmail, sendVerificationEmail } from '@/lib/mail';
 import { generateVerificationToken } from '@/lib/tokens';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { LoginSchema } from '@/schemas';
-import { signIn } from '@/server/auth';
-import { AuthError } from 'next-auth';
+import { auth, signIn, unstable_update } from '@/server/auth';
+import { AuthError, Session } from 'next-auth';
 import { type z} from "zod"
 import { db } from '@/server/db';
 import { getTwoFactorConfirmationByUser } from '@/data/two-factor-confirmation';
@@ -89,6 +89,12 @@ export const login = async (
       password,
       redirectTo: callbackUrl ?? DEFAULT_LOGIN_REDIRECT,
     });
+    let x:Session | null = null
+    auth().then((session=>x = session)).catch((e)=> null)
+    if(x){
+      void unstable_update(x);
+    }
+    
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
