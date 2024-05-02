@@ -10,7 +10,7 @@ import type { UserRole } from "@prisma/client";
 import { getTwoFactorConfirmationByUser } from "@/data/two-factor-confirmation";
 import { getAccountByUserId } from "@/data/account";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const { handlers, signIn, signOut, auth,unstable_update } = NextAuth({
   ...authConfig,
   session: { strategy: "jwt" },
   pages: {
