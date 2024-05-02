@@ -27,6 +27,7 @@ import { SettingsSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserRole } from "@prisma/client";
 import { type Session } from "next-auth";
+import { useSession } from "next-auth/react";
 import {  useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
@@ -38,7 +39,7 @@ interface SettingsProps {
 export default function Test({ session }: SettingsProps) {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
-
+  const {update} =  useSession()
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
@@ -63,6 +64,7 @@ export default function Test({ session }: SettingsProps) {
             setError(data.error);
           }
           if (data.success) {
+            void update()
             setSuccess(data.success);
           }
         })
