@@ -1,14 +1,15 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { type Adapter } from "next-auth/adapters";
+import { type AdapterSession, type AdapterUser, type Adapter } from "next-auth/adapters";
 // import { env } from "@/env";
 import { db } from "@/server/db";
 import { type DefaultJWT } from "next-auth/jwt";
-import NextAuth, { type DefaultSession } from "next-auth";
+import NextAuth, {type DefaultSession } from "next-auth";
 import authConfig from "./auth.config";
 import { getUserById } from "@/data/user";
 import type { UserRole } from "@prisma/client";
 import { getTwoFactorConfirmationByUser } from "@/data/two-factor-confirmation";
 import { getAccountByUserId } from "@/data/account";
+import {type Session } from "next-auth";
 
 export const { handlers, signIn, signOut, auth,unstable_update } = NextAuth({
   ...authConfig,
@@ -47,7 +48,7 @@ export const { handlers, signIn, signOut, auth,unstable_update } = NextAuth({
       return true
     },
     async session({ session, token }) {
-      
+
       if (token.sub && session.user) {
         session.user.id = token.sub;
       }
@@ -62,11 +63,11 @@ export const { handlers, signIn, signOut, auth,unstable_update } = NextAuth({
 
       if(session.user) {
         session.user.name = token.name
-        session.user.name = token.email
+        if(token.email) session.user.email = token.email
         session.user.isOAuth = token.isOAuth
       }
 
-      return session;
+      return session
     },
     async jwt({ token }) {
       if (!token.sub) return token;
@@ -81,10 +82,12 @@ export const { handlers, signIn, signOut, auth,unstable_update } = NextAuth({
       token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled
       token.name = existingUser.name
       token.email = existingUser.email
+
       return token;
     },
   },
 });
+
 
 declare module "next-auth" {
   interface Session extends DefaultSession {

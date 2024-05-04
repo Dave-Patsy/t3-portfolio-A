@@ -1,6 +1,5 @@
 "use client";
 
-import { settings } from "@/actions/settings";
 import FormError from "@/components/form-error";
 import FormSuccess from "@/components/form-success";
 import { Button } from "@/components/ui/button";
@@ -24,52 +23,100 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { SettingsSchema } from "@/schemas";
+import { api } from "@/trpc/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { UserRole } from "@prisma/client";
 import { type Session } from "next-auth";
 import { useSession } from "next-auth/react";
-import {  useState, useTransition } from "react";
+import {  useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { type z } from "zod";
 
 interface SettingsProps {
-  session: Session | null;
+  initSession: Session;
 }
 
-export default function Test({ session }: SettingsProps) {
+export default function Test({ initSession }: SettingsProps) {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
-  const {update} =  useSession()
+  const utils = api.useUtils();
+  const {update} = useSession()
+  const { data: session } = api.auth.settingsRouter.getSettings.useQuery(
+    undefined,
+    {
+      initialData: initSession,
+    },
+  );
+
+  const { mutate, isPending } =
+    api.auth.settingsRouter.updateSettings.useMutation({
+      async onMutate(variables) {
+        await utils.auth.settingsRouter.getSettings.cancel();
+        const prevSettings = utils.auth.settingsRouter.getSettings.getData();
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        utils.auth.settingsRouter.getSettings.setData(undefined, () => {
+          return {
+            ...prevSettings,
+            user: {
+              ...prevSettings?.user,
+              isOAuth: prevSettings?.user.isOAuth,
+              isTwoFactorEnabled: variables.isTwoFactorEnabled,
+            },
+            expires: prevSettings?.expires,
+          };
+        });
+
+        return { prevSettings };
+      },
+      onError(data, variables, context) {
+        utils.auth.settingsRouter.getSettings.setData(
+          undefined,
+          context?.prevSettings,
+        );
+        toast.error(data.message)
+      },
+      async onSettled() {
+        await utils.auth.settingsRouter.getSettings.invalidate();
+        await update()
+      },
+      onSuccess() {
+          toast.success('Updated!')
+      },
+
+    });
   const form = useForm<z.infer<typeof SettingsSchema>>({
     resolver: zodResolver(SettingsSchema),
     defaultValues: {
-      name: session?.user?.name ?? undefined,
-      email: session?.user?.email ?? undefined,
-      role: session?.user?.role ?? undefined,
-      isTwoFactorEnabled: session?.user?.isTwoFactorEnabled ?? undefined,
+      name: session.user?.name ?? undefined,
+      email: session.user?.email ?? undefined,
+      role: session.user?.role ?? undefined,
+      isTwoFactorEnabled: session.user?.isTwoFactorEnabled ?? undefined,
       newPassword: undefined,
       confirmPassword: undefined,
     },
   });
 
-  const [isPending, startTransition] = useTransition();
-  if(!session) return <span>{`You are not logged in :( `}</span>
+  // const [isPending, startTransition] = useTransition();
+  if (!session) return <span>{`You are not logged in :( `}</span>;
   const onSubmit = (values: z.infer<typeof SettingsSchema>) => {
     setError("");
     setSuccess("");
-    startTransition(() => {
-      void settings(values)
-        .then((data) => {
-          if (data.error) {
-            setError(data.error);
-          }
-          if (data.success) {
-            void update()
-            setSuccess(data.success);
-          }
-        })
-        .catch(() => setError("Something went wrong!"));
-    });
+    mutate(values);
+    // startTransition(() => {
+    //   void settings(values)
+    //     .then((data) => {
+    //       if (data.error) {
+    //         setError(data.error);
+    //       }
+    //       if (data.success) {
+    //         void update();
+    //         setSuccess(data.success);
+    //       }
+    //     })
+    //     .catch(() => setError("Something went wrong!"));
+    // });
   };
 
   return (

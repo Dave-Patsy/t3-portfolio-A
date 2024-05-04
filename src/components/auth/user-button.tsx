@@ -2,10 +2,14 @@
 
 import { FaUser } from "react-icons/fa";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "../ui/dropdown-menu"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuItem,
+} from "../ui/dropdown-menu";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import LogoutButton from "./logout-button";
-import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 import { ExitIcon } from "@radix-ui/react-icons";
 
 export default function UserButton() {
@@ -22,7 +26,7 @@ export default function UserButton() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="end">
         <LogoutButton>
-          <DropdownMenuItem>
+          <DropdownMenuItem className="w-full">
             <ExitIcon className="mr-2 h-4 w-4" />
             Logout
           </DropdownMenuItem>

@@ -22,14 +22,13 @@ import FormSuccess from '../form-success'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
-import { useSession } from 'next-auth/react'
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showTwoFactor, setShowTwoFactor] = useState<boolean >(false);
   const [error, setError] = useState<string | undefined>("")
   const [success, setSuccess] = useState<string | undefined>("")
-  const {update} = useSession()
+
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
   const paramsError =
@@ -49,29 +48,28 @@ export default function LoginForm() {
   const toogleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
   const onSubmit = (values: z.infer<typeof LoginSchema>) =>{
     setError("")
     setSuccess("")
     
-    startTransition(()=>{
-      void login(values, callbackUrl)
-        .then((data) => {
-          if (data.error) {
+    startTransition(() => {
+      login(values, callbackUrl)
+        .then((response) => {
+          if (response?.error) {
             form.reset();
-            setError(data?.error);
+            setError(response?.error);
           }
-          if (data.success) {
+          if (response?.success) {
             form.reset();
-            void update();
-            setSuccess(data?.success);
+            setSuccess(response?.success);
           }
-          if (data?.twoFactor) {
+          if (response?.twoFactor) {
             setShowTwoFactor(true);
           }
         })
-        // .finally(()=> void update());
-        // .catch((e) => setError(JSON.stringify(e)))
-    })
+        .catch(() => setError("Something went wrong!"));
+    });
   }
 
   return (
@@ -85,26 +83,23 @@ export default function LoginForm() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
             {showTwoFactor && (
-              <>
-                <FormField
-                  control={form.control}
-                  name="code"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          disabled={isPending}
-                          placeholder="123456"
-                          autoComplete="off"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>
+              <FormField
+                control={form.control}
+                name="code"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>2FA Code</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        disabled={isPending}
+                        placeholder="123456"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             )}
             {!showTwoFactor && (
               <>
@@ -118,8 +113,7 @@ export default function LoginForm() {
                         <Input
                           {...field}
                           disabled={isPending}
-                          placeholder="jonh.doe@example.com"
-                          autoComplete="email"
+                          placeholder="user@gmail"
                           type="email"
                         />
                       </FormControl>
@@ -140,7 +134,7 @@ export default function LoginForm() {
                             disabled={isPending}
                             type={showPassword ? "text" : "password"}
                             placeholder="********"
-                            autoComplete="current-password"
+                            autoComplete='current-password webauthn'
                           />
                           {showPassword ? (
                             <FaEyeSlash
@@ -155,14 +149,11 @@ export default function LoginForm() {
                           )}
                         </div>
                       </FormControl>
-                      <Button
-                        asChild
-                        size={"sm"}
-                        variant={"link"}
-                        className="px-0 font-normal"
-                      >
-                        <Link href={"/auth/reset"}>Forgot password?</Link>
-                      </Button>
+                      <Link href="/auth/forgot-password">
+                        <span className="text-sm text-gray-500 hover:underline">
+                          Forgot password?
+                        </span>
+                      </Link>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -170,8 +161,8 @@ export default function LoginForm() {
               </>
             )}
           </div>
-          <FormError message={error} />
           <FormSuccess message={success} />
+          <FormError message={error ?? paramsError} />
           <Button type="submit" className="w-full" disabled={isPending}>
             {showTwoFactor ? "Confirm" : "Login"}
           </Button>

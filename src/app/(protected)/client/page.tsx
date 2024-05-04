@@ -1,10 +1,10 @@
 'use client'
 import { UserInfo } from "@/components/auth/user-info";
-import { useCurrentUser } from "@/hooks/use-current-user";
+import { useSession } from "next-auth/react";
 
 
 export default function Page() {
-  const user = useCurrentUser();
-  return <UserInfo user={user} label="📱 Client" />;
+  const {data: session} = useSession();
+  return <UserInfo initSession={session} label="📱 Client" />;
 }
 

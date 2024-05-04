@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useTransition } from "react";
+import React, { useState } from "react";
 import CardWrapper from "./card-wrapper";
 import {type z} from "zod";
 import { useForm } from "react-hook-form";
@@ -17,16 +17,32 @@ import { RegisterSchema } from "@/schemas";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import FormError from "../form-error";
-import { register } from "@/actions/register";
 import FormSuccess from "../form-success";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { api } from "@/trpc/react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
 
-  const [isPending, startTransition] = useTransition();
+  const router = useRouter()
+  const { mutate, isPending } =
+    api.auth.registerRouter.register.useMutation({
+      onError(error) {
+        form.reset();
+        console.log(error);
+        setError(error.message);
+      },
+      onSuccess(data) {
+        toast.success(data.success);
+        router.push("/auth/login");
+        setSuccess(data.success);
+      },
+    });
+
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -36,6 +52,7 @@ export default function RegisterForm() {
       confirmPassword:''
     },
   });
+
   const toogleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -44,12 +61,7 @@ export default function RegisterForm() {
     setError("");
     setSuccess("");
 
-    startTransition(() => {
-      void register(values).then((data) => {
-        setError(data.error);
-        setSuccess(data.success);
-      });
-    });
+    void mutate(values)
   };
 
   return (

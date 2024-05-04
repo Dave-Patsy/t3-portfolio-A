@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useTransition } from "react";
+import React, { useState } from "react";
 import CardWrapper from "./card-wrapper";
 import type * as z from "zod";
 import { useForm } from "react-hook-form";
@@ -15,18 +15,32 @@ import {
 } from "@/components/ui/form";
 import { ResetSchema } from "@/schemas";
 import { Input } from "../ui/input";
-
 import FormError from "../form-error";
 import FormSuccess from "../form-success";
-
-import { reset } from "@/actions/reset";
 import { Button } from "../ui/button";
+import { api } from "@/trpc/react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function ResetForm() {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
+  
+  const router = useRouter()
 
-  const [isPending, startTransition] = useTransition();
+  const { mutate, isPending, data } =
+    api.auth.resetRouter.resetPassowrd.useMutation({
+      onError(error) {
+        form.reset();
+        console.log(error);
+        setError(error.message);
+      },
+      onSuccess(data) {
+        toast.success(data.success);
+        router.push('/auth/login')
+        setSuccess(data.success);
+      },
+    });
 
   const form = useForm<z.infer<typeof ResetSchema>>({
     resolver: zodResolver(ResetSchema),
@@ -39,12 +53,8 @@ export default function ResetForm() {
     setError("");
     setSuccess("");
 
-    startTransition(() => {
-      void reset(values).then((data) => {
-        setError(data?.error);
-        setSuccess(data?.success);
-      });
-    });
+    void mutate(values);
+
   };
 
   return (
@@ -76,6 +86,8 @@ export default function ResetForm() {
               )}
             />
           </div>
+          {data && <span>{JSON.stringify(data)}</span>}
+          {data && <span>{data.success}</span>}
           <FormError message={error} />
           <FormSuccess message={success} />
           <Button type="submit" className="w-full" disabled={isPending}>
