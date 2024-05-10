@@ -1,55 +1,27 @@
-import Link from "next/link";
 
-import { CreatePost } from "@/app/_components/create-post";
-import { getServerAuthSession } from "@/server/auth";
-import { api } from "@/trpc/server";
+import React, { Suspense } from "react";
+import Intro from "@/components/portfolio/hero/intro";
+import Hero from "@/components/portfolio/home/hero";
+import ProjectGrid from "@/components/portfolio/projects/projectGrid";
 
-export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
-  const session = await getServerAuthSession();
+export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
-        <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl text-white">
-            {hello ? hello.greeting : "Loading tRPC query..."}
-          </p>
-
-          <div className="flex flex-col items-center justify-center gap-4">
-            <p className="text-center text-2xl text-white">
-              {session && <span>Logged in as {session.user?.name}</span>}
-            </p>
-            <Link
-              href={session ? "/api/auth/signout" : "/api/auth/signin"}
-              className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-            >
-              {session ? "Sign out" : "Sign in"}
-            </Link>
+    <div className="relative h-full flex-1 scroll-smooth">
+      <Suspense fallback={null}>
+        <Intro />
+        <section className="flex h-screen items-center" id="projects">
+          <div className="z-50 mx-auto my-auto h-5/6 w-11/12">
+            {/* <Projects/> */}
+            <ProjectGrid />
           </div>
-        </div>
-
-        <CrudShowcase />
-        
-      </div>
-    </main>
-  );
-}
-
-async function CrudShowcase() {
-  const session = await getServerAuthSession();
-  if (!session?.user) return null;
-
-  const latestPost = await api.post.getLatest();
-
-  return (
-    <div className="w-full max-w-xs">
-      {latestPost ? (
-        <p className="truncate">Your most recent post: {latestPost.name}</p>
-      ) : (
-        <p>You have no posts yet.</p>
-      )}
-
-      <CreatePost />
+        </section>
+        {/* <section className='relative flex h-screen items-center' id='skills'>
+          <Skills/>
+        </section> */}
+        <section className="z-50 flex h-screen items-center" id="contact">
+        </section>
+        <Hero />
+      </Suspense>
     </div>
   );
 }

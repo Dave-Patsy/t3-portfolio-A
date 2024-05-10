@@ -5,6 +5,26 @@
 await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
-const config = {};
+const config = {
+  webpack: (config) => {
+    // eslint-disable-next-line
+    config.module.rules.push({
+      test: /\.(glsl|vs|fs|frag|vert)$/,
+      type: "asset/source",
+    });
+    // eslint-disable-next-line
+    return config;
+  },
+  images: {
+    domains: [
+      "oaidalleapiprodscus.blob.core.windows.net",
+      "utfs.io",
+      "uploadthing.com",
+      "raw.githubusercontent.com",
+      "source.unsplash.com",
+    ],
+  },
+  transpilePackages: ["lucide-react"],
+};
 
 export default config;

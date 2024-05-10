@@ -8,6 +8,7 @@ import SuperJSON from "superjson";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { type AppRouter } from "@/server/api/root";
+import { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 
 const createQueryClient = () => new QueryClient();
 
@@ -62,3 +63,17 @@ function getBaseUrl() {
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
   return `http://localhost:${process.env.PORT ?? 3000}`;
 }
+
+/**
+ * Inference helper for inputs.
+ *
+ * @example type HelloInput = RouterInputs['example']['hello']
+ */
+export type RouterInputs = inferRouterInputs<AppRouter>;
+
+/**
+ * Inference helper for outputs.
+ *
+ * @example type HelloOutput = RouterOutputs['example']['hello']
+ */
+export type RouterOutputs = inferRouterOutputs<AppRouter>;

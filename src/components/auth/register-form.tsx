@@ -73,7 +73,7 @@ export default function RegisterForm() {
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div>
+          <div className="space-y-4">
             <FormField
               control={form.control}
               name="email"
@@ -117,7 +117,7 @@ export default function RegisterForm() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <div className='flex flex-row items-center justify-center'>
+                    <div className="flex flex-row items-center justify-center">
                       <Input
                         {...field}
                         disabled={isPending}
@@ -148,8 +148,7 @@ export default function RegisterForm() {
                 <FormItem>
                   <FormLabel>Confirm Password</FormLabel>
                   <FormControl>
-                    <div className='flex flex-row items-center justify-center'>
-
+                    <div className="flex flex-row items-center justify-center">
                       <Input
                         {...field}
                         disabled={isPending}

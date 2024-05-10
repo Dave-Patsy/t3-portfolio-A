@@ -1,3 +1,16 @@
+import { spotyStripeRouter } from './routers/spoty/spoty-stripe';
+import { spotyUploadRouter } from './routers/spoty/upload';
+import { exerciseRouter } from './routers/fitness/fitness';
+import { stripeRouter as beatHiveStripeRouter } from './routers/spotify/stripe';
+import { songsRouter } from './routers/spotify/songs';
+import { songRouter as spotySongRouter } from "./routers/spoty/song";
+
+import { videoRoute } from './routers/saas/video';
+import { stripeRoute } from './routers/saas/stripe';
+import { musicRoute } from './routers/saas/music';
+import { imageRoute } from './routers/saas/image';
+import { conversationRoute } from './routers/saas/conversation';
+import { codeRoute } from './routers/saas/code';
 
 import { registerRouter } from './routers/auth/register';
 import { resetRouter } from './routers/auth/reset';
@@ -18,8 +31,18 @@ export const appRouter = createTRPCRouter({
     settingsRouter,
     resetRouter,
     registerRouter,
-
   },
+  WebForge: {
+    codeRoute,
+    conversationRoute,
+    imageRoute,
+    musicRoute,
+    stripeRoute,
+    videoRoute,
+  },
+  fitPulse: { exerciseRouter },
+  BeatHive: { songsRouter, beatHiveStripeRouter },
+  spoty: { spotyUploadRouter, spotySongRouter,spotyStripeRouter },
 });
 
 // export type definition of API
