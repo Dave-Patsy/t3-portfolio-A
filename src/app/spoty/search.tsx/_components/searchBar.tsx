@@ -24,19 +24,23 @@ export default function SearchBar() {
         onChange={onInputChange}
         placeholder="Night In Tokyo"
       />
-      <div className="flex-grow overflow-y-auto">
+      <div className="flex flex-grow gap-2 overflow-y-auto">
         {songs.data?.map((ele) => (
-          <div key={ele.id} className="w-52 rounded-md">
-            <AspectRatio ratio={1}>
-              <Image
-                src={`https://utfs.io/f/${ele.image_path}`}
-                fill={true}
-                sizes="(max-width: 768px) 12vw, (max-width: 1200px) 12vw, 12vw"
-                alt={ele.title ?? ""}
-              />
-            </AspectRatio>
+          <div key={ele.id} className='flex flex-col w-60 h-64 rounded-md bg-orange-300 justify-center items-center'>
+
+            <div  className="w-52 rounded-md">
+              <AspectRatio ratio={1} className="rounded-md">
+                <Image
+                  src={`https://utfs.io/f/${ele.image_path}`}
+                  fill={true}
+                  sizes="(max-width: 768px) 12vw, (max-width: 1200px) 12vw, 12vw"
+                  alt={ele.title ?? ""}
+                  className="rounded-md"
+                />
+              </AspectRatio>
+            </div>
             <h1>{ele.title}</h1>
-          </div>
+          </div>  
         ))}
       </div>
     </div>
