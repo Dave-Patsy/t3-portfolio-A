@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog'
 import UploadForm from './uploadForm'
-import useUploadModal from '@/hooks/beatHive/useUploadModatl'
+import useUploadModal from '@/hooks/beethive/useUploadModatl'
 
 export default function UploadModal() {
   const uploadModal = useUploadModal()

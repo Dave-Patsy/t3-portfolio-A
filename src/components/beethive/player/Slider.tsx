@@ -1,23 +1,20 @@
 "use client";
 
+import { Slider } from "@/components/ui/slider";
+import useVolume from "@/hooks/beethive/useVolume";
 import { cn } from "@/lib/utils";
 
-import useVolume from "@/hooks/beethive/useVolume";
-import { Slider } from "../ui/slider";
 
 
+type SliderProps = React.ComponentProps<typeof Slider> 
 
-
-type SliderProps = React.ComponentProps<typeof Slider>
-
-interface SpotifySliderProps extends SliderProps {
-  className?: string;
-}
-
-export function SliderSpotify({ className, ...props }: SpotifySliderProps) {
-  const volume = useVolume();
+export function SliderSpotify({
+  className,
+  ...props
+}: SliderProps) {
+  const volume = useVolume()
   const handleChange = (newValue: number[]) => {
-    volume.setVolume(newValue[0]!);
+    volume.setVolume(newValue[0]! );
     console.log(newValue[0]);
   };
   return (

@@ -7,8 +7,8 @@ import SubscribeModal from './SubscribeModal';
 export default function ModalProvider() {
   const [isMounted, setIsMounted] = useState(false);
 
-  const subscription = api.BeatHive.beatHiveStripeRouter.getSubscription.useQuery();
-  const products = api.BeatHive.beatHiveStripeRouter.getProducts.useQuery();
+  const subscription = api.beethive.beethiveStripeRouter.getSubscription.useQuery();
+  const products = api.beethive.beethiveStripeRouter.getProducts.useQuery();
 
 
   useEffect(() => {

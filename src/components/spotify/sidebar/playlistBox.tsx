@@ -14,7 +14,7 @@ type PlaylistBoxProps= {
 }
 
 export default function PlaylistBox({playLists}:PlaylistBoxProps) {
-  const playlistAPI = api.BeatHive.songsRouter.getPlaylist.useQuery(
+  const playlistAPI = api.beethive.songsRouter.getPlaylist.useQuery(
     undefined,
     {
       initialData: playLists,

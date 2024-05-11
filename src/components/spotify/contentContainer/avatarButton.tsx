@@ -37,7 +37,7 @@ export default function AvatarButton({session}:AvatarButtonProps) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Link href={"/BeatHive/account"}>Account</Link>
+          <Link href={"/beethive/account"}>Account</Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Button variant={"link"} onClick={() => signOut()}>

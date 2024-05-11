@@ -1,24 +1,24 @@
 'use client'
 
-import useQueue from '@/hooks/beethive/useQueue';
 import { Heart } from 'lucide-react';
 import React from 'react'
 
 import { api } from '@/trpc/react';
+import useQueue from '@/hooks/beethive/useQueue';
 
 
 export default function LikeButton() {
   const queue = useQueue();
 
-  const utils = api.useUtils()
-  const likeAPI = api.beethive.songsRouter.getLikedSongs.useQuery();
+  const utils = api.useContext();
+  const likeAPI = api.beethive.beethiveSongRouter.getLikedSongs.useQuery();
 
-  const addLike = api.beethive.songsRouter.updateLikedSongs.useMutation({
+  const addLike = api.beethive.beethiveSongRouter.updateLikedSongs.useMutation({
     onMutate: async () => {
-      await utils.beethive.songsRouter.getLikedSongs.cancel();
-      const prevFavorite = utils.beethive.songsRouter.getLikedSongs.getData();
+      await utils.beethive.beethiveSongRouter.getLikedSongs.cancel();
+      const prevFavorite = utils.beethive.beethiveSongRouter.getLikedSongs.getData();
 
-      utils.beethive.songsRouter.getLikedSongs.setData(
+      utils.beethive.beethiveSongRouter.getLikedSongs.setData(
         undefined,
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -29,34 +29,34 @@ export default function LikeButton() {
     },
     onError(err, newPost, ctx) {
       // If the mutation fails, use the context-value from onMutate
-      utils.beethive.songsRouter.getLikedSongs.setData(
+      utils.beethive.beethiveSongRouter.getLikedSongs.setData(
         undefined,
         ctx!.prevFavorite,
       );
     },
     async onSettled() {
-      await utils.beethive.songsRouter.getLikedSongs.invalidate();
+      await utils.beethive.beethiveSongRouter.getLikedSongs.invalidate();
     },
   });
-  const subLike = api.beethive.songsRouter.deleteLikedSongs.useMutation({
+  const subLike = api.beethive.beethiveSongRouter.deleteLikedSongs.useMutation({
     onMutate: async () => {
-      await utils.beethive.songsRouter.getLikedSongs.cancel();
-      const prevFavorite = utils.beethive.songsRouter.getLikedSongs.getData();
+      await utils.beethive.beethiveSongRouter.getLikedSongs.cancel();
+      const prevFavorite = utils.beethive.beethiveSongRouter.getLikedSongs.getData();
 
-      utils.beethive.songsRouter.getLikedSongs.setData(undefined, (old) =>
+      utils.beethive.beethiveSongRouter.getLikedSongs.setData(undefined, (old) =>
         old?.filter((favorite) => favorite.id !== queue.activeSong?.id),
       );
       return { prevFavorite };
     },
     onError(err, newPost, ctx) {
       // If the mutation fails, use the context-value from onMutate
-      utils.beethive.songsRouter.getLikedSongs.setData(
+      utils.beethive.beethiveSongRouter.getLikedSongs.setData(
         undefined,
         ctx!.prevFavorite,
       );
     },
     async onSettled() {
-      await utils.beethive.songsRouter.getLikedSongs.invalidate();
+      await utils.beethive.beethiveSongRouter.getLikedSongs.invalidate();
     },
   });
   const handleLike = () => {

@@ -1,5 +1,5 @@
 'use client'
-import useUploadModal from '@/hooks/beatHive/useUploadModatl';
+import useUploadModal from '@/hooks/beethive/useUploadModatl';
 import { LibraryBig, Plus } from 'lucide-react';
 import type { Session } from 'next-auth';
 import { signIn } from 'next-auth/react';

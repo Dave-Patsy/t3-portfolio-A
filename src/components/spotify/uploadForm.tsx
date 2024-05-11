@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
-import useUploadModal from '@/hooks/beatHive/useUploadModatl'
+import useUploadModal from '@/hooks/beethive/useUploadModatl'
 
 
 const formSchema = z.object({

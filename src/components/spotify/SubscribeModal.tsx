@@ -6,15 +6,15 @@ import { getStripe } from "@/stripe/stripeClient";
 import {type RouterOutputs, api } from "@/trpc/react";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog";
-import useSubscribeModal from "@/hooks/beatHive/useSubscribeModal";
+import useSubscribeModal from "@/hooks/beethive/useSubscribeModal";
 import { loadStripe } from "@stripe/stripe-js";
 import { env } from "@/env";
 
 
 
 interface SubscribeModalProps {
-  subscription: RouterOutputs["BeatHive"]["beatHiveStripeRouter"]["getSubscription"];
-  products: RouterOutputs["BeatHive"]["beatHiveStripeRouter"]["getProducts"];
+  subscription: RouterOutputs["beethive"]["beethiveStripeRouter"]["getSubscription"];
+  products: RouterOutputs["beethive"]["beethiveStripeRouter"]["getProducts"];
 }
 
 const formatPrice = (price: Prices) => {
@@ -36,7 +36,7 @@ const SubscribeModal: React.FC<SubscribeModalProps> = ({ products,subscription }
     }
   };
   const portalURL =
-    api.BeatHive.beatHiveStripeRouter.createCheckoutSession.useMutation({
+    api.beethive.beethiveStripeRouter.createCheckoutSession.useMutation({
       async onSuccess(data) {
         const stripe = await getStripe();
         await stripe?.redirectToCheckout({ sessionId: data });

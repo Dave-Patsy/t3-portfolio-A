@@ -170,7 +170,7 @@ export default function Projects() {
                           create a rest backend
                         </p>
                         <Button variant="link" asChild>
-                          <Link href={"/BeatHive"}>View</Link>
+                          <Link href={"/beethive"}>View</Link>
                         </Button>
                       </div>
                     </div>

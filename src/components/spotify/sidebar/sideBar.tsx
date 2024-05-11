@@ -14,10 +14,10 @@ export default async function SideBar(){
     // const playLists = await api.spotifyRoot.songsRouter.getPlaylist.query()
     return (
       <div className="flex w-full flex-col items-center justify-center gap-4 pt-4">
-        <Link href={"/BeatHive"}>
+        <Link href={"/beethive"}>
           <Home className="text-center text-black" />
         </Link>
-        <Link href={"/BeatHive/search"}>
+        <Link href={"/beethive/search"}>
           <Search className="text-center text-black" />
         </Link>
         <Separator className="w-11/12" />
@@ -29,10 +29,10 @@ export default async function SideBar(){
 
   return (
     <div className="flex w-full flex-col items-center justify-center gap-4 pt-4">
-      <Link href={"/BeatHive"}>
+      <Link href={"/beethive"}>
         <Home className="text-center text-black" />
       </Link>
-      <Link href={"/BeatHive/search"}>
+      <Link href={"/beethive/search"}>
         <Search className="text-center text-black" />
       </Link>
       <Separator className="w-11/12" />

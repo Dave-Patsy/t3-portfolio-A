@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 "use client";
+
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import useSound from "use-sound";
@@ -7,13 +8,20 @@ import { useEffect, useState } from "react";
 
 import type { Songs } from "@prisma/client";
 
-import { Pause, Play, StepBack, StepForward, Volume1, VolumeX } from "lucide-react";
+import {
+  Pause,
+  Play,
+  StepBack,
+  StepForward,
+  Volume1,
+  VolumeX,
+} from "lucide-react";
 import MediaItem from "./MediaItem";
-import LikeButton from "./LikeButton";
+
 import { SliderSpotify } from "./Slider";
 import useQueue from "@/hooks/beethive/useQueue";
 import useVolume from "@/hooks/beethive/useVolume";
-
+import LikeButton from "../ui/LikeButton";
 
 
 interface PlayerContentProps {
@@ -22,16 +30,12 @@ interface PlayerContentProps {
 
 const PlayerContent: React.FC<PlayerContentProps> = ({ song }) => {
   const player = useQueue();
-  const volume = useVolume()
+  const volume = useVolume();
 
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const Icon = () =>
-    isPlaying ? (
-      <Pause size={30} className="text-black" />
-    ) : (
-      <Play size={30} className="text-black" />
-    );
+  const Icon = isPlaying ? Pause : Play
+    
   const VolumeIcon = volume.volume === 1 ? VolumeX : Volume1;
 
   const onPlayNext = () => {
@@ -45,7 +49,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song }) => {
     const nextSong = player.songs[currentIndex + 1];
 
     if (!nextSong) {
-      const temp = player.songs[0] as unknown as Songs
+      const temp = player.songs[0] as unknown as Songs;
       return player.setSong(temp);
     }
 
@@ -57,7 +61,9 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song }) => {
       return;
     }
 
-    const currentIndex = player.songs.findIndex((song) => song.id === player.activeSong?.id);
+    const currentIndex = player.songs.findIndex(
+      (song) => song.id === player.activeSong?.id,
+    );
     const previousSong = player.songs[currentIndex - 1];
 
     if (!previousSong) {
@@ -72,7 +78,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song }) => {
   const [play, { pause, sound }] = useSound(
     `https://utfs.io/f/${song?.song_path} ` ?? "",
     {
-      volume: 1- volume.volume,
+      volume: 1 - volume.volume,
       onplay: () => setIsPlaying(true),
       onend: () => {
         setIsPlaying(false);
@@ -94,7 +100,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song }) => {
   }, [sound]);
 
   const handlePlay = () => {
-    console.log('handle play music', isPlaying)
+    console.log("handle play music", isPlaying);
     if (!isPlaying) {
       play();
     } else {
@@ -104,20 +110,18 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song }) => {
 
   const toggleMute = () => {
     if (volume.volume === 0) {
-     volume.setVolume(1);
+      volume.setVolume(1);
     } else {
       volume.setVolume(0);
     }
   };
 
-  return player.activeSong ?
-   (
+  return player.activeSong ? (
     <div className="grid h-full grid-cols-2 md:grid-cols-3">
       <div className="flex w-full justify-start">
         <div className="flex items-center gap-x-4">
           <MediaItem />
           <LikeButton />
-          {/* <LikeButton songId={song.id} />  */}
         </div>
       </div>
 
@@ -128,8 +132,8 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song }) => {
             w-full 
             items-center 
             justify-end 
-            md:hidden
             px-4
+            md:hidden
           "
       >
         <div
@@ -152,15 +156,15 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song }) => {
 
       <div
         className="
+            mx-4
             hidden
-            h-full
+            h-full 
             w-full 
             max-w-[722px] 
             items-center 
             justify-center 
-            gap-x-6 
+            gap-x-6
             md:flex
-            mx-4
           "
       >
         <StepBack
@@ -168,9 +172,9 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song }) => {
           size={30}
           className="
               cursor-pointer 
-              text-neutral-400 
+              text-orange-400
               transition 
-              hover:text-white
+              hover:text-orange-400
             "
         />
         <div
@@ -183,7 +187,10 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song }) => {
               items-center 
               justify-center 
               rounded-full 
-              bg-white 
+              fill-white
+              stro
+              text-yellow-200
+              bg-orange-500
               p-1
             "
         >
@@ -194,9 +201,9 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song }) => {
           size={30}
           className="
               cursor-pointer 
-              text-neutral-400 
+              text-orange-400
               transition 
-              hover:text-white
+              hover:text-orange-600
             "
         />
       </div>
@@ -208,11 +215,11 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song }) => {
             className="cursor-pointer"
             size={34}
           />
-          <SliderSpotify/>
+          <SliderSpotify />
         </div>
       </div>
     </div>
-  ): null
+  ) : null;
 };
 
 export default PlayerContent;

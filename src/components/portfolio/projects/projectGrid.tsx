@@ -32,10 +32,10 @@ const projects: projectsType = [
     badges: ["Nextjs", "prisma", "SupaBase", "AI", "Auth", "Stripe"],
   },
   {
-    project: "BeatHive",
+    project: "Beethive",
     description:
       "D Music is a music streaming app I built, inspired by Spotify. It allows users to listen to a vast library of music, podcasts, and other audio content. To cater to different user preferences, I implemented a freemium model with Stripe integration for seamless subscription management",
-    href: "/BeatHive",
+    href: "/beethive",
     src: "/images/portfolio/D Music.png",
     badges: ["Nextjs", "prisma", "SupaBase", "Auth", "Stripe"],
   },

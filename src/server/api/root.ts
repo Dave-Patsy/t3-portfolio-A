@@ -1,9 +1,7 @@
-import { spotyStripeRouter } from './routers/spoty/spoty-stripe';
-import { spotyUploadRouter } from './routers/spoty/upload';
+import { beethiveStripeRouter } from './routers/beethive/beethive-stripe';
+import { beethiveUploadRouter } from './routers/beethive/upload';
+import { songRouter as beethiveSongRouter } from "./routers/beethive/song";
 import { exerciseRouter } from './routers/fitness/fitness';
-import { stripeRouter as beatHiveStripeRouter } from './routers/spotify/stripe';
-import { songsRouter } from './routers/spotify/songs';
-import { songRouter as spotySongRouter } from "./routers/spoty/song";
 
 import { videoRoute } from './routers/saas/video';
 import { stripeRoute } from './routers/saas/stripe';
@@ -41,8 +39,7 @@ export const appRouter = createTRPCRouter({
     videoRoute,
   },
   fitPulse: { exerciseRouter },
-  BeatHive: { songsRouter, beatHiveStripeRouter },
-  spoty: { spotyUploadRouter, spotySongRouter,spotyStripeRouter },
+  beethive: { beethiveUploadRouter, beethiveSongRouter,beethiveStripeRouter },
 });
 
 // export type definition of API

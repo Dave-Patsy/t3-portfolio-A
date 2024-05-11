@@ -10,7 +10,7 @@ import ContentHeader from './contentHeader';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
-import useOnPlay from '@/hooks/beatHive/useOnPlay';
+import useOnPlay from '@/hooks/beethive/useOnPlay';
 // import ContentHeader from './contentHeader';
 
 type pageContentProps = {
@@ -24,7 +24,7 @@ export default function PageContent({session,songs}:pageContentProps) {
 
   const handleTopPicksClick = async() =>{
     if(session){
-      router.push("/BeatHive/likedsongs");
+      router.push("/beethive/likedsongs");
     } else{
       await signIn();
     } 
