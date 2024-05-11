@@ -8,7 +8,7 @@ import type { Songs } from '@prisma/client'
 export default async function Page() {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore
-  const favoriteApi: Songs[] = await api.beethive.songsRouter.getLikedSongs();
+  const favoriteApi: Songs[] = await api.beethive.beethiveSongRouter.getLikedSongs();
   const session = await auth();
 
   return (

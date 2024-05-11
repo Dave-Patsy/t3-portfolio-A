@@ -16,7 +16,7 @@ import { ExitIcon } from "@radix-ui/react-icons";
 import LogoutButton from "@/components/auth/logout-button";
 import Link from "next/link";
 
-export default function beethiveUserButton() {
+export default function BeethiveUserButton() {
   const user = useCurrentUser();
   return (
     <DropdownMenu>
@@ -29,7 +29,7 @@ export default function beethiveUserButton() {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-40" align="end">
-        <DropdownMenuLabel className="text-nowrap truncate">
+        <DropdownMenuLabel className="truncate text-nowrap">
           {user?.name?.toUpperCase()}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

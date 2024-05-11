@@ -3,7 +3,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import React from "react";
 
 import { useRouter } from "next/navigation";
-import beethiveUserButton from "../ui/beethive-user-button";
+import BeethiveUserButton from "../ui/spoty-user-button";
+
 
 
 
@@ -25,7 +26,7 @@ export default function ContentHeader() {
         />
       </div>
       <div className="flex items-center  pr-4">
-        <beethiveUserButton />
+        <BeethiveUserButton />
       </div>
     </div>
   );

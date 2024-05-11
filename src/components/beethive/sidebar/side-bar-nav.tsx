@@ -29,7 +29,7 @@ export default function SideBarNav() {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
-              <Link href={"/beethive"}>
+              <Link href={"/beethive/search"}>
                 <GoSearch className="h-12 w-12" />
               </Link>
             </TooltipTrigger>

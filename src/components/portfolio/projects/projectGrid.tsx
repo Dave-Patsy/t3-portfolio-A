@@ -16,19 +16,11 @@ type projectsType = (
 
 const projects: projectsType = [
   {
-    project: "FitPulse",
-    description:
-      "FitPulse is a mobile application I designed to cater to a wide range of fitness enthusiasts. It empowers users to embark on personalized fitness journeys, whether they prefer following pre-designed programs or creating custom routines.",
-    href: "/FitPulse",
-    src: "/images/portfolio/dFitness.png",
-    badges: ["Nextjs", "prisma", "SupaBase", "Rest", "TRPC", "Auth"],
-  },
-  {
     project: "WebForge",
     description:
       "WebForge is an AI-powered Software-as-a-Service (SaaS) application I designed specifically for coders. It leverages cutting-edge AI models to streamline the development process",
     href: "/WebForge",
-    src: "/images/portfolio/sass-dash.png",
+    src: "/images/portfolio/webforge.png",
     badges: ["Nextjs", "prisma", "SupaBase", "AI", "Auth", "Stripe"],
   },
   {
@@ -36,8 +28,16 @@ const projects: projectsType = [
     description:
       "D Music is a music streaming app I built, inspired by Spotify. It allows users to listen to a vast library of music, podcasts, and other audio content. To cater to different user preferences, I implemented a freemium model with Stripe integration for seamless subscription management",
     href: "/beethive",
-    src: "/images/portfolio/D Music.png",
-    badges: ["Nextjs", "prisma", "SupaBase", "Auth", "Stripe"],
+    src: "/images/portfolio/beethive.png",
+    badges: ["Nextjs", "Prisma", "SupaBase", "Authjs", "Stripe",'UploadThing'],
+  },
+  {
+    project: "FitPulse",
+    description:
+      "FitPulse is a mobile application I designed to cater to a wide range of fitness enthusiasts. It empowers users to embark on personalized fitness journeys, whether they prefer following pre-designed programs or creating custom routines.",
+    href: "/FitPulse",
+    src: "/images/portfolio/dFitness.png",
+    badges: ["Nextjs", "prisma", "SupaBase", "Rest", "TRPC", "Auth"],
   },
   {
     project: "Pony Spider",
