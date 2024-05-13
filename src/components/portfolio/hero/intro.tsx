@@ -17,26 +17,22 @@ export default function Intro() {
         animate={{ opacity: 1 }}
         // transition={{duration:1}}
       >
-        <h1
-          className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-cover bg-clip-text text-5xl md:text-7xl font-semibold tracking-tighter text-transparent bg-blend-multiply"
-        >
+        <h1 className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-cover bg-clip-text text-5xl font-semibold tracking-tighter text-transparent bg-blend-multiply md:text-7xl">
           David Williams-Haven
         </h1>
 
-        <h1 className="text-2xl md:text-4xl font-medium leading-6 tracking-tighter">
+        <h1 className="text-2xl font-medium leading-6 tracking-tighter md:text-4xl">
           Fullstack web developer
         </h1>
         <h1 className="text-lg font-semibold tracking-wide text-slate-500">
           Bio
         </h1>
-        <p className="text-sm md:text-base leading-4">
-          Motivated junior web developer with a solid foundation in web
-          development and hands-on experience working with Node.js and Python
-          web servers. Eager to apply my skills in full-stack development and
-          contribute to dynamic projects that leverage cutting-edge
-          technologies. Proficient in building responsive and user-friendly web
-          applications using HTML, CSS, and JavaScript, with a focus on creating
-          seamless user experiences.
+        <p className="text-sm leading-4 md:text-base">
+          {`I'm a motivated web developer with a strong foundation in computer
+          science. I have hands-on experience building web applications using
+          Node.js and Python web servers. I'm eager to leverage my full-stack
+          development skills and contribute to innovative projects that utilize
+          the latest technologies.`}
         </p>
 
         <div className="relative flex gap-2 py-2">

@@ -40,11 +40,11 @@ const projects: projectsType = [
     badges: ["Nextjs", "prisma", "SupaBase", "Rest", "TRPC", "Auth"],
   },
   {
-    project: "Pony Spider",
+    project: "Versa Desk",
     description: "Snow Sport E-commerce web app. - devmode password:teitay",
-    href: "https://nextjs-commerce-app-drab.vercel.app/",
-    src: "/images/portfolio/Pony Spider.png",
-    badges: ["Nextjs", "Shopify", "GraphQL"],
+    href: "https://nextjs-versa-test.vercel.app/",
+    src: "/images/portfolio/Versa-Desk.png",
+    badges: ["Nextjs", "Shopify", "GraphQL", 'CMS'],
   },
 ];
 export default function ProjectGrid() {
