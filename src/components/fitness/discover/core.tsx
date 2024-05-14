@@ -1,9 +1,10 @@
-
+'use client'
 import Image from "next/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
-const workoutCategories = {
-  workoutCategories: [
+const workoutCategories = [
     {
       category: "Cardiovascular exercises",
       tip: "Engage in activities like running, cycling, or swimming to improve cardiovascular fitness and endurance.",
@@ -44,21 +45,40 @@ const workoutCategories = {
       category: "Mind-body exercises",
       tip: "Explore practices like meditation, tai chi, or yoga to promote mental well-being, relaxation, and mind-body connection.",
     },
-  ],
-};
+  ]
+
 
 export default function Core() {
-  return (
-    <>
+  const [x, setX] = useState<typeof workoutCategories>();
 
-      <div className="text-center text-6xl font-extrabold">Core</div>
-      <div className="mx-auto grid w-11/12 grid-cols-1 md:grid-cols-2 lg:grid-cols-5  items-center justify-items-center gap-2">
-        {workoutCategories.workoutCategories.map((ele, idx) => {
+  useEffect(() => {
+    const shuffledArray = workoutCategories.sort(() => 0.5 - Math.random());
+    setX(() => shuffledArray.slice(0, Math.min(5, shuffledArray.length / 2)));
+  }, []);
+  if(!x) return null
+  
+  return (
+    <div className="mx-auto w-11/12">
+      <div className="flex items-baseline justify-between">
+        <div className="py-2 text-6xl font-extrabold">Core</div>
+        <Link
+          href={"/FitPulse"}
+          className="py-2 text-2xl font-light text-slate-600 hover:text-slate-700"
+        >
+          Find more...
+        </Link>
+      </div>
+ 
+      <div className="mx-auto grid grid-cols-1 items-center justify-items-center  gap-2 md:grid-cols-2 lg:grid-cols-5">
+        {x.map((ele, idx) => {
           return (
-            <div className="relative w-full" key={idx}>
+            <div
+              className="relative w-full cursor-pointer overflow-clip rounded-md duration-100 hover:scale-105"
+              key={idx}
+            >
               <AspectRatio ratio={1}>
                 <div className="h-full w-full">
-                  <div className="absolute flex h-full w-full items-center justify-center bg-black/40 text-center z-10">
+                  <div className="absolute z-10 flex h-full w-full items-center justify-center bg-black/40 text-center">
                     <h1 className="text-4xl font-extrabold text-white">
                       {ele.category}
                     </h1>
@@ -77,6 +97,6 @@ export default function Core() {
           );
         })}
       </div>
-    </>
+    </div>
   );
 }

@@ -15,29 +15,36 @@ const colorPalet = [
 
 export default function WeeklyGoal() {
   return (
-    <div>
-      <div className="bg-test mx-auto flex w-full flex-col items-center justify-center gap-8 self-center">
-        <div className="flex w-full flex-col justify-center bg-accent">
-          <h1 className="text-center text-6xl ">Muscle Trained</h1>
-          <div className="flex justify-center">
-            <div className="h-fit w-96 overflow-hidden rounded-md">
-              <AspectRatio ratio={16 / 9}>
-                <MuscleSVG />
-                {/* <MuscleSVGTest/> */}
-              </AspectRatio>
-            </div>
-            <div className="flex flex-col gap-4">
-              <Label>weekly muscle uses</Label>
-              {colorPalet.map((ele, idx) => {
-                return (
-                  <div
-                    className={`flex h-9 w-14 ${ele} items-center justify-center self-center text-center `}
-                    key={idx}
-                  >
-                    {idx}
-                  </div>
-                );
-              })}
+    <div className="h-full">
+      <div className="bg-test  mx-auto flex h-full w-full flex-col items-center justify-center gap-8 self-center rounded-md overflow-clip">
+        <div className="flex h-full w-full flex-col justify-center bg-accent">
+          <h1 className="text-center text-5xl tracking-tight ">Muscle Trained</h1>
+          <div className="flex flex-col">
+
+            <div className="flex flex-grow flex-col justify-center items-center">
+              <div className="h-fit w-96 overflow-hidden rounded-md">
+                <AspectRatio ratio={16 / 9}>
+                  <MuscleSVG />
+                  {/* <MuscleSVGTest/> */}
+                </AspectRatio>
+              </div>
+              <div className="flex flex-col gap-1 pt-2">
+                <Label className="leading-4 tracking-tight pt-2">weekly muscle uses</Label>
+                <div className="flex gap-4" 
+                >
+
+                  {colorPalet.map((ele, idx) => {
+                    return (
+                      <div
+                        className={`flex h-9 w-14 ${ele} items-center justify-center self-center text-center `}
+                        key={idx}
+                      >
+                        {idx}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         </div>

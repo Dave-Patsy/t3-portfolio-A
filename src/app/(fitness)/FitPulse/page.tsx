@@ -1,20 +1,16 @@
 
 import Collections from "@/components/fitness/discover/collections"
 import Core from "@/components/fitness/discover/core"
+import Overview from "@/components/fitness/discover/overview";
 import Recommended from "@/components/fitness/discover/recommended";
-import WeeklyGoal from "@/components/fitness/discover/weeklygoal";
-
-
 
 export default function Page() {
   return (
-    <>
-        <WeeklyGoal />
+    <div className="py-4">
+        <Overview />
         <Recommended />
-
         <Core />
-
         <Collections />
-    </>
+    </div>
   )
 }

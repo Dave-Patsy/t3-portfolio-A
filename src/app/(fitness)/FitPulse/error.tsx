@@ -1,9 +1,32 @@
-"use client";
+"use client"; // Error components must be Client Components
 
 import { Empty } from "@/components/saas/empty";
+import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 
-const Error = () => {
-  return <Empty label="Something went wrong." />;
-};
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
+  useEffect(() => {
+    // Log the error to an error reporting service
+    console.error(error);
+  }, [error]);
 
-export default Error;
+  return (
+    <div>
+      <Empty label="Something went wrong." />
+      <Button
+        onClick={
+          // Attempt to recover by trying to re-render the segment
+          () => reset()
+        }
+      >
+        Try again
+      </Button>
+    </div>
+  );
+}

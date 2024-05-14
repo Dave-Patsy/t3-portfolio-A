@@ -26,10 +26,10 @@ const projects: projectsType = [
   {
     project: "Beethive",
     description:
-      "D Music is a music streaming app I built, inspired by Spotify. It allows users to listen to a vast library of music, podcasts, and other audio content. To cater to different user preferences, I implemented a freemium model with Stripe integration for seamless subscription management",
+      "Beethive is a dynamic music streaming platform I developed, drawing inspiration from Spotify. It offers access to an extensive collection of music, podcasts, and various audio content. Tailoring to diverse user needs, I integrated a freemium model and leveraged Stripe for smooth subscription handling.",
     href: "/beethive",
     src: "/images/portfolio/beethive.png",
-    badges: ["Nextjs", "Prisma", "SupaBase", "Authjs", "Stripe",'UploadThing'],
+    badges: ["Nextjs", "Prisma", "SupaBase", "Authjs", "Stripe", "UploadThing"],
   },
   {
     project: "FitPulse",
@@ -41,10 +41,11 @@ const projects: projectsType = [
   },
   {
     project: "Versa Desk",
-    description: "Snow Sport E-commerce web app. - devmode password:teitay",
+    description:
+      "An agile Shopify E-commerce web application with a headless architecture. Seamlessly manages inventory, boosts sales, and streamlines fulfillment processes. Enhances performance and elevates SEO for maximum online visibility. - devmode password:stowyi",
     href: "https://nextjs-versa-test.vercel.app/",
     src: "/images/portfolio/Versa-Desk.png",
-    badges: ["Nextjs", "Shopify", "GraphQL", 'CMS'],
+    badges: ["Nextjs", "Shopify", "GraphQL", "CMS"],
   },
 ];
 export default function ProjectGrid() {

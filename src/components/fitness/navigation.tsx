@@ -12,7 +12,7 @@ export default function Navigation() {
         <div className="w-20">
           <AspectRatio ratio={1}>
             <Image
-              src={"/images/d-FitPulse/d-FitPulse-logo.png"}
+              src={"/images/fitpulse/fitpulse.jpg"}
               fill={true}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               alt="Image"

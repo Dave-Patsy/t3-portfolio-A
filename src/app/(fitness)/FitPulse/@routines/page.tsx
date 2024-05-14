@@ -1,9 +1,4 @@
 
-
-// import { Button } from '~/components/ui/button'
-// import { Card, CardHeader, CardTitle } from '~/components/ui/card'
-// import { getRoutines } from '@/utils/server/routine'
-// import Link from 'next/link'
 import React from 'react'
 import CreateRoutineModal from './_components/createRoutineModal'
 import { api } from '@/trpc/server'
@@ -17,7 +12,7 @@ export default async function Page() {
     <>
     
         <div>
-          <h1 className='font-semibold tracking-tighter text-5xl text-center py-8'>Build Routine</h1>
+          <h1 className='font-semibold tracking-tighter text-5xl text-center py-8'>My Routine</h1>
           <div className='flex flex-col gap-2'>
 
             <CreateRoutineModal/> 
