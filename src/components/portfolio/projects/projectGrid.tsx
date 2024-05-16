@@ -36,7 +36,7 @@ const projects: projectsType = [
     description:
       "FitPulse is a mobile application I designed to cater to a wide range of fitness enthusiasts. It empowers users to embark on personalized fitness journeys, whether they prefer following pre-designed programs or creating custom routines.",
     href: "/FitPulse",
-    src: "/images/portfolio/dFitness.png",
+    src: "/images/portfolio/fitpulse.png",
     badges: ["Nextjs", "prisma", "SupaBase", "Rest", "TRPC", "Auth"],
   },
   {

@@ -6,7 +6,6 @@ import { Card, CardHeader, CardTitle } from '@/components/ui/card'
 import { DotsVerticalIcon } from '@radix-ui/react-icons'
 
 export default async function Page() {
-  // const routines = await getRoutines()
   const routines = await api.fitPulse.exerciseRouter.getRoutines()
   return (
     <>

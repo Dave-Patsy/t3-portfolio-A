@@ -3,6 +3,7 @@ import React, { Suspense } from "react";
 import Intro from "@/components/portfolio/hero/intro";
 import Hero from "@/components/portfolio/home/hero";
 import ProjectGrid from "@/components/portfolio/projects/projectGrid";
+import Contact from "@/components/portfolio/contact/contact";
 
 export default function Page() {
   return (
@@ -18,7 +19,8 @@ export default function Page() {
         {/* <section className='relative flex h-screen items-center' id='skills'>
           <Skills/>
         </section> */}
-        <section className="z-50 flex h-screen items-center" id="contact">
+        <section className="relative z-50 flex h-screen justify-center items-center" id="contact">
+          <Contact/>
         </section>
         <Hero />
       </Suspense>
