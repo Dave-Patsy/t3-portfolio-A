@@ -16,6 +16,7 @@ import { getServerAuthSession } from "@/server/auth";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import LogoutButton from "@/components/auth/logout-button";
 import LoginButton from "@/components/auth/login-button";
+import Link from "next/link";
 
 export async function UserNav() {
   const session = await getServerAuthSession()
@@ -56,14 +57,17 @@ export async function UserNav() {
             <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            Settings
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+            <Link href={"/settings"} className="w-full">
+              <div className="flex justify-between items-baseline">
+                <h1>Settings</h1>
+                <DropdownMenuShortcut>⌘S</DropdownMenuShortcut> 
+              </div>
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <LogoutButton >
-
+          <LogoutButton>
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </LogoutButton>
         </DropdownMenuItem>

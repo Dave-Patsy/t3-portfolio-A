@@ -47,11 +47,26 @@ const projects: projectsType = [
     src: "/images/portfolio/Versa-Desk.png",
     badges: ["Nextjs", "Shopify", "GraphQL", "CMS"],
   },
+  {
+    project: "Authjs",
+    description:
+      "Implementing Authjs with JWT strategy, this solution offers robust security features including OAuth2 and credentials authentication, role-based access control, two-factor authentication (2FA), and password reset capabilities. It seamlessly integrates client/server routing to provide a secure and efficient user experience, ideal for businesses seeking reliable and comprehensive authentication solutions.",
+    href: "/settings",
+    src: "/images/portfolio/auth.png",
+    badges: [
+      "Nextjs",
+      "Authjs",
+      "JWT",
+      "OAuth2",
+      "TwoFactorAuthentication (2FA)",
+      "SecureWebDevelopment",
+    ],
+  },
 ];
 export default function ProjectGrid() {
   return (
     <div className='pb-4'>
-      <h1 className="py-8 text-center text-4xl font-semibold tracking-tighter">
+      <h1 className="py-8 text-center text-6xl font-light tracking-tighter">
         Projects
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -71,22 +86,29 @@ export default function ProjectGrid() {
                     className=" opacity-75"
                   />
                 </AspectRatio>
-                <div className="invisible absolute left-1/2 top-1/2 z-30 col-span-1 row-span-1 h-full w-full -translate-x-1/2 -translate-y-1/2 bg-black/60 opacity-0 transition-all duration-300 ease-in-out group-hover:visible  group-hover:opacity-100 ">
+                <div className="invisible absolute left-0 top-0  z-30 col-span-1 row-span-1 h-full w-full  bg-black/60 opacity-0 transition-all duration-300 ease-in-out group-hover:visible  group-hover:opacity-100 ">
                   <div className="relative mx-auto flex h-full w-4/6 flex-col items-center justify-center space-y-2 ">
-                    <h1 className="text-3xl font-semibold leading-9 tracking-tight text-white">
-                      {ele.project}
-                    </h1>
-                    <p className="leading-5 text-white">{ele.description}</p>
-                    <div className=" grid h-12  w-full grid-cols-4 items-center justify-center    justify-items-center gap-2 ">
-                      {ele.badges.map((elej) => (
-                        <Badge
-                          className="z-20 justify-center border-black text-center"
-                          variant={"default"}
-                          key={elej}
-                        >
-                          {elej}
-                        </Badge>
-                      ))}
+                    <div className='absolute w-full h-full'>
+                      <div className='relative w-full h-full'>
+
+                        <h1 className="text-3xl font-semibold leading-9 tracking-tight text-white">
+                          {ele.project}
+                        </h1>
+                        <p className="leading-5 text-white">{ele.description}</p>
+                        <div className="relative flex  w-full pt-2  gap-2 flex-wrap">
+                          {ele.badges.map((elej) => (
+                            <Badge
+                              className="z-20 justify-center border-black text-center"
+                              variant={"default"}
+                              
+                              key={elej}
+                            >
+                              {elej}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+
                     </div>
                   </div>
                 </div>

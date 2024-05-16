@@ -10,7 +10,7 @@ export default function Page() {
     <div className="relative h-full flex-1 scroll-smooth">
       <Suspense fallback={null}>
         <Intro />
-        <section className="flex h-screen items-center" id="projects">
+        <section className="flex min-h-screen items-center" id="projects">
           <div className="z-50 mx-auto my-auto h-5/6 w-11/12">
             {/* <Projects/> */}
             <ProjectGrid />
@@ -19,8 +19,11 @@ export default function Page() {
         {/* <section className='relative flex h-screen items-center' id='skills'>
           <Skills/>
         </section> */}
-        <section className="relative z-50 flex h-screen justify-center items-center" id="contact">
-          <Contact/>
+        <section
+          className="relative z-50 flex min-h-screen items-center justify-center"
+          id="contact"
+        >
+          <Contact />
         </section>
         <Hero />
       </Suspense>
