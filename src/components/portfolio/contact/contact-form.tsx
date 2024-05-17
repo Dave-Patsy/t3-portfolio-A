@@ -10,6 +10,7 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 
 const ContactFormSchema = z.object({
+  name:z.string().min(1).max(30),
   email: z.string().email(),
   message: z.string().max(1500).min(5)
 
@@ -19,6 +20,7 @@ export default function ContactForm() {
   const form = useForm<z.infer<typeof ContactFormSchema>>({
     resolver: zodResolver(ContactFormSchema),
     defaultValues:{
+      name:'',
       email: '',
       message: ''
     }
@@ -41,6 +43,24 @@ export default function ContactForm() {
           onSubmit={form.handleSubmit(handleSubmit)}
           className="space-y-6"
         >
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="John Doe"
+                    type="text"
+                    autoComplete="name"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
             name="email"

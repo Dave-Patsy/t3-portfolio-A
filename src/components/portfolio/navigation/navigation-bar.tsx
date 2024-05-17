@@ -14,7 +14,7 @@ export default function NavigationBar() {
         <div className="fixed z-50 my-auto flex  h-16 w-full items-center justify-center from-[#E6E9FA]/80 to-[#E6E9FA]/5 px-4 hover:bg-gradient-to-b dark:from-black/80 dark:to-black/5">
           <NavLinks />
           <div className="ml-auto flex items-center justify-center space-x-4 pr-16">
-            <Link href={"/images/portfolio/Resume Google Docs.pdf"}>
+            <Link href={"/images/portfolio/Resume.pdf"} target='_blank'>
               <h1>Resume</h1>
             </Link>
 
