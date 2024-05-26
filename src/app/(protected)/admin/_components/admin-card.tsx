@@ -6,8 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { api } from "@/trpc/react";
 import { UserRole } from "@prisma/client";
-import {type Session } from "next-auth";
-
 import { toast } from "sonner";
 
 

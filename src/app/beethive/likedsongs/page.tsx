@@ -13,8 +13,8 @@ export default async function Page() {
 
   return (
     <div className="flex-grow-1 relative flex flex-col overflow-y-auto scrollbar scrollbar-thumb-slate-400 scrollbar-w-2  scrollbar-h-8">
-      <div className="flex content-center items-center gap-4">
-        <h1 className="ml-8  text-5xl font-bold leading-3 tracking-tighter">
+      <div className="relative flex justify-start  gap-4 pb-4 ">
+        <h1 className=" ml-8 text-5xl font-bold tracking-tighter">
           Favorites
         </h1>
         <PlayButton songs={favoriteApi} session={session} />

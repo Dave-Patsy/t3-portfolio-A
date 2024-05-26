@@ -10,7 +10,7 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/h
 
 export default function Intro() {
   return (
-    <section className="relative h-screen">
+    <section className="relative h-screen w-full">
       <motion.div
         className="absolute left-1/2 top-1/2 z-50  w-11/12 -translate-x-1/2 -translate-y-1/2   md:w-[734px] "
         initial={{ opacity: 0 }}
@@ -102,7 +102,7 @@ export default function Intro() {
             </HoverCard>
           </div>
           <Button variant={"ghost"} className="ring-1 ring-black" asChild>
-            <Link href={"#projects"}>Checkout my Projects</Link>
+            <Link href={"#projects"} scroll={true}>Checkout my Projects</Link>
           </Button>
         </div>
       </motion.div>

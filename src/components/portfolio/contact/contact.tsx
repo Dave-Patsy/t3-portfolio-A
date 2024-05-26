@@ -5,9 +5,9 @@ import ContactForm from './contact-form'
 export default function Contact() {
   return (
     <div className='absolute z-50 w-full h-full top-0 left-0'>
-      <div className='pt-16 h-full flex justify-center items-center'>
+      <div className='pt-16 h-full w-full flex justify-center items-center'>
 
-        <Card className='bg-transparent w-4/6'>
+        <Card className='bg-transparent w-11/12'>
           <CardHeader>
             <CardTitle>Contact Me!</CardTitle>
           </CardHeader>

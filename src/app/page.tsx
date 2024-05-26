@@ -11,7 +11,7 @@ export default function Page() {
       <Suspense fallback={null}>
         <Intro />
         <section className="flex min-h-screen items-center" id="projects">
-          <div className="z-50 mx-auto my-auto h-5/6 w-11/12">
+          <div className="z-50 mx-auto my-auto h-5/6 w-full">
             {/* <Projects/> */}
             <ProjectGrid />
           </div>
@@ -20,7 +20,7 @@ export default function Page() {
           <Skills/>
         </section> */}
         <section
-          className="relative z-50 flex min-h-screen items-center justify-center"
+          className="relative z-50 flex w-full min-h-screen items-center justify-center"
           id="contact"
         >
           <Contact />

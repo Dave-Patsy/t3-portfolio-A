@@ -35,7 +35,7 @@ export default function ContentMain({songs,session}: ContentMainProps) {
       <h1 className="pl-2 text-5xl font-bold tracking-tight">Good Afternoon</h1>
       <div className="m-4 grid h-32 grid-cols-1 items-center justify-items-center gap-4 md:grid-cols-2 lg:grid-cols-3">
         <div
-          className="flex h-24 w-full cursor-pointer items-center justify-start overflow-clip rounded-md bg-white/10"
+          className="flex h-24 w-full cursor-pointer items-center justify-start overflow-clip rounded-md bg-white/20"
           onClick={handleTopPicksClick}
         >
           <div className="relative h-24 w-24">
@@ -46,7 +46,7 @@ export default function ContentMain({songs,session}: ContentMainProps) {
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </div>
-          <h1 className="flex-grow pl-4 text-start text-lg font-normal tracking-tight">
+          <h1 className="flex-grow  pl-4 text-start text-lg font-normal tracking-tight">
             Favorites
           </h1>
         </div>
@@ -63,7 +63,7 @@ export default function ContentMain({songs,session}: ContentMainProps) {
             className="t flex w-full cursor-pointer flex-col"
             onClick={() => onPlay(song)}
           >
-            <AspectRatio ratio={1}>
+            <AspectRatio ratio={1} className='rounded-md overflow-clip'>
               <Image
                 src={`https://utfs.io/f/${song.image_path}`}
                 alt={`song image`}

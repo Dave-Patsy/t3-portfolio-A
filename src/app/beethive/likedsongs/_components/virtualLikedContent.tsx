@@ -42,6 +42,7 @@ export default function VirtualLikedContent({ favorites }: LikedContentProps) {
     getScrollElement: () => parentRef.current,
     estimateSize: () => 120,
     paddingEnd: 10,
+    paddingStart:10,
   });
 
   if (!favoriteAPI.data?.length) return null
@@ -90,7 +91,7 @@ export default function VirtualLikedContent({ favorites }: LikedContentProps) {
                 <div className="flex w-16 min-w-[2rem] items-center justify-center">
                   {virtualItem.index + 1}
                 </div>
-                <div className="w-18 relative flex aspect-square min-w-20  items-center justify-center">
+                <div className="w-18 relative flex aspect-square rounded-md overflow-clip min-w-20  items-center justify-center">
                   <AspectRatio ratio={1} className="rounded-md">
                     <Image
                       src={`https://utfs.io/f/${

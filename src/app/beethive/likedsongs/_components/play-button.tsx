@@ -15,15 +15,18 @@ export default function PlayButton({songs,session}:useOnPlayProps){
   const queue = useQueue()
   if(!songs) return null
   return (
-    <div
-      className="flex h-10 w-10 cursor-pointer items-center
-        justify-center rounded-full bg-orange-500 text-yellow-200"
-      onClick={() => {
-        queue.setSongs(songs.map((song) => song))
-        queue.setSong(songs.at(0)!);
-      }}
-    >
-      <Play />
+    <div className="flex justify-center items-center">
+
+      <div
+        className="flex h-10 w-10 cursor-pointer items-center
+          justify-center rounded-full bg-orange-500 text-yellow-200"
+        onClick={() => {
+          queue.setSongs(songs.map((song) => song))
+          queue.setSong(songs.at(0)!);
+        }}
+      >
+        <Play />
+      </div>
     </div>
   );
 }

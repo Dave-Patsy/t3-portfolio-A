@@ -65,7 +65,7 @@ export default function QueueContent() {
                   }
                 >
                   <div className="relative flex w-11/12  items-center justify-center ">
-                    <AspectRatio ratio={1}>
+                    <AspectRatio ratio={1} className='rounded-md overflow-clip'>
                       <Image
                         src={`https://utfs.io/f/${
                           queue.songs.at(virtualItem.index)?.image_path

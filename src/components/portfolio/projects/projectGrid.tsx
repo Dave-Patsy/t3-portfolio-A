@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React from 'react'
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Badge } from '@/components/ui/badge';
+import ProjectCards from './project-cards';
 
 type projectsType = (
   {
@@ -65,12 +66,14 @@ const projects: projectsType = [
 ];
 export default function ProjectGrid() {
   return (
-    <div className='pb-4'>
-      <h1 className="py-8 text-center text-6xl font-light tracking-tighter">
+    <div className="pb-4 pt-8">
+      <h1 className="py-8 text-center text-6xl font-bold tracking-tighter">
         Projects
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {projects.map((ele) => (
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4"> */}
+      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 items-center  justify-center gap-16 lg:w-4/6 mx-auto">
+        <ProjectCards />
+        {/* {projects.map((ele) => (
           <Link href={ele.href} className="group" key={ele.project}>
             <div className="relative flex h-full items-center justify-center ">
               <div className="relative w-full overflow-clip rounded-lg">
@@ -115,7 +118,7 @@ export default function ProjectGrid() {
               </div>
             </div>
           </Link>
-        ))}
+        ))} */}
       </div>
     </div>
   );

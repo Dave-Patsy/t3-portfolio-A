@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className={`font-sans ${inter.variable}`}>
         <TRPCReactProvider>
           <AuthProvider>
@@ -36,7 +36,7 @@ export default function RootLayout({
               enableSystem
               disableTransitionOnChange
             >
-              <main className="scroll-smooth relative flex min-h-screen flex-col dark:bg-gradient-to-b dark:from-[#2e026d] dark:to-[#15162c]">
+              <main className="relative flex min-h-screen flex-col scroll-smooth dark:bg-gradient-to-b dark:from-[#2e026d] dark:to-[#15162c]">
                 <Toaster />
                 <NavigationBar />
                 {children}
