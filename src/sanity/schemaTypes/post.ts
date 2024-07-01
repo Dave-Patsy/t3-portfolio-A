@@ -65,8 +65,10 @@ export default defineType({
       media: 'mainImage',
     },
     prepare(selection) {
-      const { author }: PreviewConfig['select']= selection;
-      return {...selection, subtitle: author && `by ${author}`}
+      /* eslint-disable */
+      const { author }: PreviewConfig["select"] = selection;
+      /* eslint-disable */
+      return { ...selection, subtitle: author && `by ${author}` };
     },
   },
 })
