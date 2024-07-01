@@ -1,4 +1,4 @@
-import {defineField, defineType} from 'sanity'
+import {defineField, defineType, PreviewConfig} from 'sanity'
 
 export default defineType({
   name: 'post',
@@ -65,7 +65,7 @@ export default defineType({
       media: 'mainImage',
     },
     prepare(selection) {
-      const {author} = selection
+      const { author }: PreviewConfig['select']= selection;
       return {...selection, subtitle: author && `by ${author}`}
     },
   },
