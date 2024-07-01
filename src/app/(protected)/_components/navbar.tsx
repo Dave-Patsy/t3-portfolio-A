@@ -8,8 +8,9 @@ import React from 'react'
 export default function Navbar() {
   const pathname = usePathname()
   return (
-    <div className='bg-secondary flex justify-between items-center px-4 py-2 rounded-xl w-[600px] shadow-sm'>
-      <div className=' flex gap-x-2'>
+    <div className='bg-secondary gap-2 flex flex-col justify-between items-center px-4 py-2 rounded-xl w-11/12 mx-auto shadow-sm'>
+      <UserButton/>
+      <div className=' flex gap-x-1'>
         <Button 
           asChild
           variant={pathname === '/settings' ? 'default' :'outline'}
@@ -43,7 +44,6 @@ export default function Navbar() {
           </Link>
         </Button>
       </div>
-      <UserButton/>
     </div>
   )
 }

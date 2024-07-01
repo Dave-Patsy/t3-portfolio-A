@@ -37,7 +37,7 @@ export default function AdminCard() {
     });
   };
   return (
-    <Card className="w-[600px]">
+    <Card className="w-11/12">
       <CardHeader>
         <p className="text-center text-2xl font-semibold">🗝 Admin</p>
       </CardHeader>

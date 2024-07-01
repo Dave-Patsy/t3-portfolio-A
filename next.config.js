@@ -22,6 +22,7 @@ const config = {
       "uploadthing.com",
       "raw.githubusercontent.com",
       "source.unsplash.com",
+      "cdn.sanity.io",
     ],
   },
   transpilePackages: ["lucide-react"],

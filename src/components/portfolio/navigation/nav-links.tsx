@@ -6,7 +6,10 @@ import { cn } from '@/lib/utils';
 export default function NavLinks({ className, ...props }: React.HTMLAttributes<HTMLElement>) {
   return (
     <nav
-      className={cn("flex items-center space-x-4 lg:space-x-6 pl-16", className)}
+      className={cn(
+        "flex items-center space-x-4 pl-16 lg:space-x-6",
+        className,
+      )}
       {...props}
     >
       <Link
@@ -16,7 +19,7 @@ export default function NavLinks({ className, ...props }: React.HTMLAttributes<H
         Home
       </Link>
       <Link
-        href="/"
+        href="#projects"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
         Projects

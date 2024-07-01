@@ -121,7 +121,7 @@ export default function Test({ initSession }: SettingsProps) {
 
   return (
     <div className="">
-      <Card className="w-[600px]">
+      <Card className="w-11/12 mx-auto">
         <CardHeader>
           <p className=" text-center text-2xl font-semibold">⚙ Settings</p>
         </CardHeader>
