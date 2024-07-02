@@ -19,10 +19,16 @@ export default function NavLinks({ className, ...props }: React.HTMLAttributes<H
         Home
       </Link>
       <Link
-        href="#projects"
+        href="/blog"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Projects
+        Blog
+      </Link>
+      <Link
+        href="/studio"
+        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+      >
+        Studio
       </Link>
       {/* <Link
         href="/projects"
