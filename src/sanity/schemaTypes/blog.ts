@@ -43,7 +43,7 @@ export default {
       title: "Content",
       of: [
         {
-          type: "block",
+          type: "markdown",
         },
       ],
     },
