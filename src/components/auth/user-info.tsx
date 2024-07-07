@@ -19,7 +19,7 @@ export const UserInfo = ({ initSession, label }: UserInfoProps) => {
   if(isPending) return null
   if(!session) return null
   return (
-    <Card className="w-11/12  shadow-md">
+    <Card className="w-11/12 mx-auto  shadow-md">
       <CardHeader>
         <p className="text-center text-2xl font-semibold">{label}</p>
       </CardHeader>
