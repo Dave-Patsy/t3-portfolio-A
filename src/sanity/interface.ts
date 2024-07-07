@@ -17,3 +17,13 @@ export interface fullBlog {
   content: string
   titleImage: Image;
 }
+
+export interface blogCard {
+  title: string;
+  smallDescription: string;
+  currentSluge: string;
+  titleImage: Image;
+  demoLink: string;
+  publishedAt: string;
+}
+
