@@ -1,6 +1,6 @@
 
 
-import { Image, PortableTextBlock } from "sanity";
+import { BlockMarksDefinition, Image } from "sanity";
 
 export interface simpleBlogCard {
   title: string;
@@ -13,6 +13,6 @@ export interface simpleBlogCard {
 export interface fullBlog {
   currentSlug: string;
   title: string;
-  content: PortableTextBlock;
+  content: BlockMarksDefinition;
   titleImage: Image;
 }

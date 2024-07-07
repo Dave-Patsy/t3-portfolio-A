@@ -2,7 +2,6 @@
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { urlForImage } from '@/sanity/lib/image';
 import { getFullBlog } from '@/sanity/querys/blogQuery';
-import { PortableText } from "@portabletext/react";
 import Image from 'next/image';
 import React from 'react'
 import Markdown from 'react-markdown';
