@@ -1,6 +1,7 @@
 
 
 import { BlockMarksDefinition, Image } from "sanity";
+import { markdownSchema, type markdownSchemaType } from "sanity-plugin-markdown";
 
 export interface simpleBlogCard {
   title: string;
@@ -13,6 +14,6 @@ export interface simpleBlogCard {
 export interface fullBlog {
   currentSlug: string;
   title: string;
-  content: BlockMarksDefinition;
+  content: string
   titleImage: Image;
 }
