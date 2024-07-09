@@ -13,6 +13,7 @@ const {auth} = NextAuth(authConfig)
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 export default auth( (req) => {
+  console.log('middleware: ', req)
   const {nextUrl} = req
   const isLoggidIn = !!req.auth
   
