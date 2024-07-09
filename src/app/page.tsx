@@ -16,6 +16,7 @@ export const revalidate = 300;
 
 export default async function Page() {
   const data = await getSimpleBlog();
+  
   return (
     <div className="relative h-full flex-1 scroll-smooth">
       <Suspense fallback={null}>

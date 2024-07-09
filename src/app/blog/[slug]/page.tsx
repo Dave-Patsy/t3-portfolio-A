@@ -48,7 +48,7 @@ export default async function page({params}:{params: {slug:string}}) {
       </div>
 
       <div className="prose prose-blue prose-lg dark:prose-invert prose-li:marker:text-primary prose-a:text-primary mt-16">
-        <Markdown>{`${data.content}`}</Markdown>
+        <Markdown>{data.content}</Markdown>
       </div>
     </div>
   );
