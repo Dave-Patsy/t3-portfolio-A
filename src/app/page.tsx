@@ -12,6 +12,7 @@ import Link from "next/link";
 import { urlForImage } from "@/sanity/lib/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { headers } from "next/headers";
+import GetMicroData from "./_components/getMicroData";
 
 export const revalidate = 300; 
 
@@ -95,6 +96,13 @@ export default async function Page() {
         >
           <Contact />
         </section>
+        <section
+          className="relative z-50 flex min-h-screen w-full items-center justify-center"
+          id="test"
+        >
+          <GetMicroData />
+        </section>
+
         <Hero />
       </Suspense>
     </div>
