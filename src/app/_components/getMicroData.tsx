@@ -16,7 +16,7 @@ export default function GetMicroData() {
         throw new Error("Network response was not ok");
       }
       // console.log(res)
-      const jsonData = await res.json();
+      const jsonData:string = await res.json();
       console.log(jsonData);
       setData(jsonData);
       // const x =  
