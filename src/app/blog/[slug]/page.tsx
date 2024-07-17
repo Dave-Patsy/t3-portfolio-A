@@ -5,6 +5,7 @@ import { getFullBlog } from '@/sanity/querys/blogQuery';
 import Image from 'next/image';
 import React from 'react'
 import Markdown from 'react-markdown';
+
 export const revalidate = 300; // revalidate at most 5 minutes
 
 export default async function page({params}:{params: {slug:string}}) {
@@ -48,7 +49,7 @@ export default async function page({params}:{params: {slug:string}}) {
       </div>
 
       <div className="prose prose-blue prose-lg dark:prose-invert prose-li:marker:text-primary prose-a:text-primary mt-16">
-        <Markdown>{data.content}</Markdown>
+        <Markdown>{`${data.content}`}</Markdown>
       </div>
     </div>
   );
