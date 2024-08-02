@@ -15,7 +15,7 @@ export default function NavigationBar() {
           <NavLinks />
           <div className="ml-auto flex items-center justify-center space-x-4 pr-16">
             <Link
-              href={"/images/portfolio/Resume.pdf"}
+              href={"/images/portfolio/Resume (7-22-24).pdf"}
               target="_blank"
               className="text-sm text-muted-foreground hover:text-primary font-medium"
             >
