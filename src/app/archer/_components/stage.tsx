@@ -57,7 +57,7 @@ export default function Experience() {
     // hitSound.play()
   };
 
-  const hamburger = useGLTF("./hamburger.glb");
+  const hamburger = useGLTF("/archer/assets/hamburger.glb");
 
   const cubesCount = 100;
   const instances = useMemo(() => {
