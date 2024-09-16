@@ -11,15 +11,13 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { urlForImage } from "@/sanity/lib/image";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { headers } from "next/headers";
 import GetMicroData from "./_components/getMicroData";
 
 export const revalidate = 300; 
 
 export default async function Page() {
   const data = await getSimpleBlog();
-    const headerList = headers();
-    console.log('headers portfolio page: ',headerList);
+
   return (
     <div className="relative h-full flex-1 scroll-smooth">
       <Suspense fallback={null}>

@@ -76,7 +76,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song }) => {
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const [play, { pause, sound }] = useSound(
-    `https://utfs.io/f/${song?.song_path} ` ?? "",
+    song?.song_path ? `https://utfs.io/f/${song?.song_path}` : "",
     {
       volume: 1 - volume.volume,
       onplay: () => setIsPlaying(true),

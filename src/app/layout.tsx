@@ -8,7 +8,7 @@ import AuthProvider from "@/providers/auth-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "next-themes";
 import NavigationBar from "@/components/portfolio/navigation/navigation-bar";
-import { headers } from "next/headers";
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,8 +27,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
 
-  const headerList = headers()
-  console.log(headerList)
   return (
     <html lang="en" className="scroll-smooth">
       <body className={`font-sans ${inter.variable}`}>
