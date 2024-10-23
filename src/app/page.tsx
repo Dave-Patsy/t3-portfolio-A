@@ -31,8 +31,8 @@ export default async function Page() {
             </h1>
           <div className="mx-auto mt-5 grid w-11/12 grid-cols-1 md:grid-cols-2 gap-5 xl:grid-cols-4">
             {data.map((post) => (
-              <Card key={post.title} className="flex flex-col">
-                <div className="relative aspect-video w-full items-center justify-center overflow-hidden rounded-md">
+              <Card key={post.title} className="flex flex-col bg-transparent backdrop-blur-sm hover:scale-105 duration-100">
+                <div className="relative aspect-video w-11/12 mx-auto items-center justify-center overflow-hidden rounded-md mt-3">
                   <Image
                     src={"/images/portfolio/bg.png"}
                     fill={true}
@@ -94,12 +94,12 @@ export default async function Page() {
         >
           <Contact />
         </section>
-        <section
+        {/* <section
           className="relative z-50 flex min-h-screen w-full items-center justify-center"
           id="test"
         >
           <GetMicroData />
-        </section>
+        </section> */}
 
         <Hero />
       </Suspense>

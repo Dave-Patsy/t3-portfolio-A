@@ -17,7 +17,7 @@ export default function NavigationBar() {
             <Link
               href={"/images/portfolio/Resume (7-22-24).pdf"}
               target="_blank"
-              className="text-sm text-muted-foreground hover:text-primary font-medium"
+              className="text-sm font-medium text-muted-foreground hover:text-primary"
             >
               <h1>Resume</h1>
             </Link>
