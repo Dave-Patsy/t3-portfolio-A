@@ -8,7 +8,8 @@ import AuthProvider from "@/providers/auth-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "next-themes";
 import NavigationBar from "@/components/portfolio/navigation/navigation-bar";
-import { CSPostHogProvider } from "@/providers/posthog-provider";
+import { PHProvider } from "@/providers/posthog-provider";
+import PostHogPageView from "@/hooks/analytics/PostHogPageView";
 
 
 const inter = Inter({
@@ -32,7 +33,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className={`font-sans ${inter.variable}`}>
 
-        <CSPostHogProvider>
+        <PHProvider>
           <TRPCReactProvider>
             <AuthProvider>
               <ThemeProvider
@@ -44,12 +45,13 @@ export default function RootLayout({
                 <main className="relative flex min-h-screen flex-col scroll-smooth dark:bg-gradient-to-b dark:from-[#2e026d] dark:to-[#15162c]">
                   <Toaster />
                   <NavigationBar />
+                  <PostHogPageView/>
                   {children}
                 </main>
               </ThemeProvider>
             </AuthProvider>
           </TRPCReactProvider>
-        </CSPostHogProvider>
+        </PHProvider>
       </body>
     </html>
   );

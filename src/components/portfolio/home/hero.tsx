@@ -17,7 +17,7 @@ export default function Hero() {
   // if(!loaded) return null
 
   return (
-    <div id="canvas-container" className="fixed  top-0 left-0 -z-100 h-full w-full">
+    <div id="canvas-container" className="fixed  top-0 left-0 -z-10 h-full w-full">
       <Canvas className='-z-10' camera={{ fov: 40, near: 0.1, far: 1000, position: [0, 0, 5.5] }}>
         <ambientLight intensity={0.1} />
         <directionalLight color="white" position={[0, 0, 5]} />
