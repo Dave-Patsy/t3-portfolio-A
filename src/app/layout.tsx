@@ -42,7 +42,7 @@ export default function RootLayout({
                 enableSystem
                 disableTransitionOnChange
               >
-                <main className="relative flex min-h-screen flex-col scroll-smooth dark:bg-gradient-to-b dark:from-[#2e026d] dark:to-[#15162c]">
+                <main className="relative flex min-h-screen flex-col scroll-smooth">
                   <Toaster />
                   <NavigationBar />
                   <PostHogPageView/>
