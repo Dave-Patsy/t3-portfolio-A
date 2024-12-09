@@ -4,19 +4,22 @@ import ContactForm from './contact-form'
 
 export default function Contact() {
   return (
-    <div className='absolute z-50 w-full h-full top-0 left-0'>
-      <div className='pt-16 h-full w-full flex justify-center items-center'>
-
-        <Card className='bg-transparent backdrop-blur-sm w-11/12 lg:w-10/12 2xl:w-7/12 '>
-          <CardHeader>
-            <CardTitle>Contact Me!</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ContactForm/>
-          </CardContent>
-
-        </Card>
+    <section
+      className="relative z-50 flex min-h-screen w-full items-center justify-center"
+      id="contact"
+    >
+      <div className="absolute left-0 top-0 z-50 h-full w-full">
+        <div className="flex h-full w-full items-center justify-center pt-16">
+          <Card className="w-full bg-transparent backdrop-blur-sm ">
+            <CardHeader>
+              <CardTitle>Contact Me!</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ContactForm />
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </div>
-  )
+    </section>
+  );
 }

@@ -10,6 +10,7 @@ import { ThemeProvider } from "next-themes";
 import NavigationBar from "@/components/portfolio/navigation/navigation-bar";
 import { PHProvider } from "@/providers/posthog-provider";
 import PostHogPageView from "@/hooks/analytics/PostHogPageView";
+import { Suspense } from "react";
 
 
 const inter = Inter({
@@ -43,10 +44,13 @@ export default function RootLayout({
                 disableTransitionOnChange
               >
                 <main className="relative flex min-h-screen flex-col scroll-smooth">
-                  <Toaster />
-                  <NavigationBar />
-                  <PostHogPageView/>
-                  {children}
+                  <Suspense fallback={null}>
+
+                    <Toaster />
+                    <NavigationBar />
+                    <PostHogPageView/>
+                    {children}
+                  </Suspense>
                 </main>
               </ThemeProvider>
             </AuthProvider>
