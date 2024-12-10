@@ -8,6 +8,8 @@ import { FaGithub, FaLinkedin, FaSquareXTwitter } from "react-icons/fa6";
 import { Button } from '@/components/ui/button';
 import Stack from './stack';
 import Skills from './skills';
+import TechStack from './stack-test';
+import TechStack2 from './stack-test-2';
 
 
 export default function Intro() {
@@ -23,7 +25,6 @@ export default function Intro() {
           <h1 className="bg-gradient-to-r from-cyan-500 to-blue-500 bg-cover bg-clip-text text-5xl font-semibold tracking-tighter text-transparent bg-blend-multiply md:text-7xl">
             David Williams-Haven
           </h1>
-
           <h1 className="text-2xl font-normal leading-6 tracking-tighter md:text-4xl">
             Fullstack web developer
           </h1>
@@ -61,7 +62,9 @@ export default function Intro() {
               <FaGithub scale={2} />
             </Button>
           </div>
-          <Stack />
+          {/* <Stack /> */}
+          {/* <TechStack/> */}
+          <TechStack2/>
           <Skills />
         </div>
       </motion.div>

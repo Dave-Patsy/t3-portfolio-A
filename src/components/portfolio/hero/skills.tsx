@@ -47,7 +47,7 @@ const SkillsPortfolio = () => {
 
   return (
     <section className="">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-6xl pt-4">
         <h2 className="mb-2 text-left text-4xl font-light">Key Skills</h2>
         <div className="flex flex-wrap gap-2  justify-center ">
           {skills.map(({ category, items }) => (
