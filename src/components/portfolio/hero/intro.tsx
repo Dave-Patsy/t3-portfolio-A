@@ -10,6 +10,7 @@ import Stack from './stack';
 import Skills from './skills';
 import TechStack from './stack-test';
 import TechStack2 from './stack-test-2';
+import TechStack3 from './stack-test-3';
 
 
 export default function Intro() {
@@ -62,9 +63,7 @@ export default function Intro() {
               <FaGithub scale={2} />
             </Button>
           </div>
-          {/* <Stack /> */}
-          {/* <TechStack/> */}
-          <TechStack2/>
+          <TechStack3/>
           <Skills />
         </div>
       </motion.div>

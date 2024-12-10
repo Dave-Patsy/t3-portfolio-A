@@ -48,22 +48,24 @@ const SkillsPortfolio = () => {
   return (
     <section className="">
       <div className="mx-auto max-w-6xl pt-4">
-        <h2 className="mb-2 text-left text-4xl font-light">Key Skills</h2>
-        <div className="flex flex-wrap gap-2  justify-center ">
+        <h2 className="mb-2 text-left text-2xl md:text-4xl font-normal leading-6 tracking-tighter">
+          Skills
+        </h2>
+        <div className="flex flex-wrap justify-center  gap-2 ">
           {skills.map(({ category, items }) => (
-            <Card key={category} className="flex-1 w-full bg-transparent backdrop-blur-sm transition-shadow hover:shadow-lg">
+            <Card
+              key={category}
+              className="w-full flex-1 bg-transparent backdrop-blur-sm transition-shadow hover:shadow-lg"
+            >
               <CardHeader>
-                <CardTitle className="text-xl font-semibold">
+                <CardTitle className="text-xl font-semibold leading-4 tracking-tight">
                   {category}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-2">
+                <ul className="">
                   {items.map((item) => (
-                    <li
-                      key={item}
-                      className="rounded  px-4 text-sm font-medium"
-                    >
+                    <li key={item} className="rounded text-sm font-medium">
                       {item}
                     </li>
                   ))}

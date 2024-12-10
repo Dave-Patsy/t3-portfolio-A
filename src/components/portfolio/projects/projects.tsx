@@ -14,7 +14,7 @@ export default async function Projects() {
       className="relative z-50 flex min-h-screen w-full flex-col "
       id="projects"
     >
-      <h1 className="py-8 text-left text-5xl font-bold tracking-tighter">
+      <h1 className="pt-8 text-left text-3xl md:text-4xl font-normal tracking-tighter">
         Projects
       </h1>
       <div className="mx-auto mt-0 grid  grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-2">
@@ -57,11 +57,11 @@ export default async function Projects() {
                 </p>
               </div>
               <div className=" flex justify-between">
-                <Button asChild variant={"default"} className="mt-5">
+                <Button asChild variant={"ghost"} className="mt-5">
                   <Link href={`/blog/${post.currentSluge}`}>Read More</Link>
                 </Button>
                 {post.demoLink && (
-                  <Button asChild className="mt-5">
+                  <Button asChild className="mt-5" variant={'outline'}>
                     <Link href={post.demoLink}>Demo</Link>
                   </Button>
                 )}
