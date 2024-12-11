@@ -1,8 +1,10 @@
 
 import { AspectRatio } from '@/components/ui/aspect-ratio';
+import { Button } from '@/components/ui/button';
 import { urlForImage } from '@/sanity/lib/image';
 import { getFullBlog } from '@/sanity/querys/blogQuery';
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react'
 import Markdown from 'react-markdown';
 
@@ -48,9 +50,14 @@ export default async function page({params}:{params: {slug:string}}) {
         </div>
       </div>
 
-      <div className="prose prose-blue prose-lg dark:prose-invert prose-li:marker:text-primary prose-a:text-primary mt-16">
+      <div className="w-screen mx-2 px-2 prose prose-blue prose-lg dark:prose-invert prose-li:marker:text-primary prose-a:text-primary mt-16">
         <Markdown>{`${data.content}`}</Markdown>
       </div>
+      <Button variant={'link'} asChild>
+        <Link href='/blog' className='text-xl mt-8'>
+          Return to Blog
+        </Link>
+      </Button>
     </div>
   );
 }

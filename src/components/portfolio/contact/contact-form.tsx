@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { api } from '@/trpc/react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
 import { useForm } from 'react-hook-form'
@@ -26,12 +27,19 @@ export default function ContactForm() {
     }
   })
 
-  const handleSubmit = (values: z.infer<typeof ContactFormSchema>) => {
-    setTimeout(()=>{
-      console.log(values)
+  const {mutate} = api.portfolio.sendContactEmail.useMutation({
+    onSuccess(data, variables, context) {
       toast.success("Message Sent");
-      form.reset()
-    },2000)
+      form.reset();
+    },
+  })
+
+  const handleSubmit = (values: z.infer<typeof ContactFormSchema>) => {
+    mutate({
+      name: values.name,
+      email: values.email,
+      message: values.message,
+    });
   }
 
   

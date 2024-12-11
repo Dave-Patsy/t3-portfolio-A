@@ -36,3 +36,16 @@ export const sendVerificationEmail = async(
     html: `<p>Click <a href="${confirmationLink}">here</a> to confirm email.</p>`,
   });
 }
+
+export const sendContactEmail = async(
+  name:string,
+  email:string,
+  message:string
+) => {
+  await resend.emails.send({
+    from: "onboarding@resend.dev",
+    to: "david.williams.haven@gmail.com",
+    subject: `Portfolio contact - from ${name}`,
+    html: `<p>${message}</p>`,
+  });
+}
