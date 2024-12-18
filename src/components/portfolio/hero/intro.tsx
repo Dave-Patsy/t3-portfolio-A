@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import Skills from './skills';
 
 import TechStack3 from './stack-test-3';
+import TechStack4 from './stack-test-4';
 
 
 export default function Intro() {
@@ -75,7 +76,8 @@ export default function Intro() {
               </Button>
             </div>
           </div>
-          <TechStack3 />
+          {/* <TechStack3 /> */}
+          <TechStack4 />
           <Skills />
         </div>
       </motion.div>

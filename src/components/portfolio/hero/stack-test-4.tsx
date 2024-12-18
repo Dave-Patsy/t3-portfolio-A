@@ -24,6 +24,7 @@ import {
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 
 const categories = [
   {
@@ -174,9 +175,10 @@ type CategoryItemProps = {
   name: string;
   icon: JSX.Element;
   description: string;
+  label: string;
 };
 
-function CategoryItem({ name, icon, description }: CategoryItemProps) {
+function CategoryItem({ name, icon, description, label }: CategoryItemProps) {
   const [hovered, setHovered] = useState<boolean>(false);
 
   return (
@@ -194,8 +196,9 @@ function CategoryItem({ name, icon, description }: CategoryItemProps) {
       {hovered &&
         createPortal(
           <HoverCardContent
-            className=" z-[9999] w-64 rounded-lg mx-2"
+            className="flex flex-col z-[9999] w-64 rounded-lg mx-2"
           >
+            <Label>{label}</Label>
             {description}
           </HoverCardContent>,
           document.body, // Render outside the card container
@@ -204,37 +207,29 @@ function CategoryItem({ name, icon, description }: CategoryItemProps) {
   );
 }
 
-export default function TechStack3() {
+export default function TechStack4() {
   return (
     <div className="relative bg-transparent">
       <h2 className="my-2 text-left text-2xl font-normal leading-6 tracking-tighter md:text-4xl">
         Tech Stack
       </h2>
-      <div className="grid grid-cols-1 justify-center gap-2 md:grid-cols-2 lg:grid-cols-3">
-        {categories.map((category, index) => (
-          <Card
-            key={category.label}
-            className="relative z-10 w-full flex-1 bg-transparent backdrop-blur-sm transition-shadow hover:shadow-lg"
-          >
-            <CardHeader className="pb-0 pt-4">
-              <CardTitle className="h-8 text-xl font-semibold leading-4 tracking-tight">
-                {category.label}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="pb-2">
-              <div className="flex flex-wrap justify-items-center gap-4">
-                {category.items.map((item, idx) => (
-                  <CategoryItem
-                    key={idx}
-                    name={item.name}
-                    icon={item.icon}
-                    description={item.description}
-                  />
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+      <div className="flex flex-wrap justify-center gap-2">
+        {categories.map((category, index) => {
+          return (
+            <>
+
+              {category.items.map((item, idx) => (
+                <CategoryItem
+                  key={idx}
+                  name={item.name}
+                  icon={item.icon}
+                  description={item.description}
+                  label={category.label}
+                />
+              ))}
+            </>
+          )
+        })}
       </div>
     </div>
   );
