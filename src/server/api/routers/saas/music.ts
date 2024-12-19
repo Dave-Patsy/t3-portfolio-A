@@ -40,20 +40,20 @@ export const musicRoute = createTRPCRouter({
             message: "Free trial has expired. Please upgrade to pro.",
           });
         }
-
-        const response = await replicate.run(
-          "riffusion/riffusion:8cf61ea6c56afd61d8f5b9ffd14d7c216c0a93844ce2d82ac1c9ecc9c7f24e05",
-          {
-            input: {
-              prompt_a: opts.input.promt,
-            },
-          }
-        ) as audioType
-        // const response = await openai.audio.transcriptions.create({
-        //   model:'whisper-1',
-        //   prompt: 'asd',
-        //   file:
-        // })
+ 
+        // const response = await replicate.run(
+        //   "riffusion/riffusion:8cf61ea6c56afd61d8f5b9ffd14d7c216c0a93844ce2d82ac1c9ecc9c7f24e05",
+        //   {
+        //     input: {
+        //       prompt_a: opts.input.promt,
+        //     },
+        //   }
+        // ) as audioType
+        const response = await openai.audio.transcriptions.create({
+          model:'whisper-1',
+          prompt: 'asd',
+          file:
+        }) as audioType
 
         if (!isPro) {
           await incrementApiLimit(opts.ctx.session);
@@ -61,7 +61,7 @@ export const musicRoute = createTRPCRouter({
         console.log(response);
         return response;
       } catch (error) {
-        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
+        throw new TRPCError({ code: "INTERNAL_SERVER_ERROR",message:'TRPC Failed' });
       }
       
     }),

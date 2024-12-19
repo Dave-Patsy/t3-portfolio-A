@@ -4,30 +4,63 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const testimonials = [
   {
-    name: "Joel",
-    avatar: "J",
-    title: "Software Engineer",
-    description: "This is the best application I've ever used!",
+    name: "Lila",
+    avatar: "L",
+    title: "Freelance Illustrator",
+    description:
+      "WebForge is my go-to tool for brainstorming creative ideas—it’s a game-changer for my workflow!",
   },
   {
-    name: "Antonio",
+    name: "Carlos",
+    avatar: "C",
+    title: "Marketing Specialist",
+    description:
+      "This app has streamlined our content creation process, saving hours each week!",
+  },
+  {
+    name: "Ava",
     avatar: "A",
-    title: "Designer",
-    description: "I use this daily for generating new photos!",
+    title: "Art Director",
+    description:
+      "The AI-generated assets are so polished that my team uses them directly in client pitches.",
   },
   {
-    name: "Mark",
-    avatar: "M",
-    title: "CEO",
-    description: "This app has changed my life, cannot imagine working without it!",
+    name: "James",
+    avatar: "J",
+    title: "Product Manager",
+    description:
+      "WebForge transformed the way we produce visuals for our SaaS platform. Absolutely fantastic!",
   },
   {
-    name: "Mary",
-    avatar: "M",
-    title: "CFO",
-    description: "The best in class, definitely worth the premium subscription!",
+    name: "Sophia",
+    avatar: "S",
+    title: "Graphic Designer",
+    description:
+      "I’ve tried other tools, but nothing matches the quality and creativity WebForge offers!",
+  },
+  {
+    name: "Elena",
+    avatar: "E",
+    title: "Content Strategist",
+    description:
+      "WebForge has completely transformed how we generate visuals for our campaigns. It’s like having a designer on demand!",
+  },
+  {
+    name: "Raj",
+    avatar: "R",
+    title: "Small Business Owner",
+    description:
+      "This app has been a lifesaver for creating professional-looking content without hiring a full-time designer.",
+  },
+  {
+    name: "Hannah",
+    avatar: "H",
+    title: "Social Media Manager",
+    description:
+      "I’ve seen our engagement rates soar thanks to the stunning assets I can create with WebForge in minutes!",
   },
 ];
+
 
 export const LandingContent = () => {
   return (
