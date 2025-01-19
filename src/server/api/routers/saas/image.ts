@@ -13,12 +13,13 @@ export const imageRoute = createTRPCRouter({
   image: protectedProcedure
     .input(
       z.object({
-        promt: z.string().min(1).max(100),
+        promt: z.string().min(1).max(300),
         amount: z.string().min(1).max(4),
       })
     )
     .mutation(async (opts) => {
       try {
+        console.log("Break 1")
         if (!openai.apiKey)
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
@@ -26,14 +27,14 @@ export const imageRoute = createTRPCRouter({
           });
         const freeTrial = await checkApiLimit(opts.ctx.session);
         const isPro = await checkSubscription(opts.ctx.session);
-
+        console.log("Break 2");
         if (!freeTrial && !isPro) {
           throw new TRPCError({
             code: "UNAUTHORIZED",
             message: "Free trial has expired. Please upgrade to pro.",
           });
         }
-
+        console.log("Break 3");
         const response = await openai.images.generate({
           model:"dall-e-3",
           prompt: opts.input.promt,
@@ -44,7 +45,7 @@ export const imageRoute = createTRPCRouter({
         if (!isPro) {
           await incrementApiLimit(opts.ctx.session);
         }
-
+        console.log("Break 4");
         return response;
       } catch (error) {
         console.log(error)

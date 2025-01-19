@@ -11,6 +11,7 @@ import Skills from './skills';
 
 import TechStack3 from './stack-test-3';
 import TechStack4 from './stack-test-4';
+import SkillsPortfolio1 from './skills-test-1';
 
 
 export default function Intro() {
@@ -78,7 +79,8 @@ export default function Intro() {
           </div>
           {/* <TechStack3 /> */}
           <TechStack4 />
-          <Skills />
+          {/* <Skills /> */}
+          <SkillsPortfolio1/>
         </div>
       </motion.div>
     </section>

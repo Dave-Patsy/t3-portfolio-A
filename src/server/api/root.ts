@@ -17,6 +17,7 @@ import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
 import { adminRouter } from "./routers/auth/admin";
 import { settingsRouter } from "./routers/auth/settings";
 import { portfolioRouter } from './routers/portfolio/contact';
+import { streamRouter } from './routers/stream/test';
 
 /**
  * This is the primary router for your server.
@@ -42,6 +43,7 @@ export const appRouter = createTRPCRouter({
   fitPulse: { exerciseRouter },
   beethive: { beethiveUploadRouter, beethiveSongRouter, beethiveStripeRouter },
   portfolio: portfolioRouter,
+  stream: streamRouter,
 });
 
 // export type definition of API
