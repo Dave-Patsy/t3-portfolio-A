@@ -25,7 +25,8 @@ async function getSimpleBlog() {
       smallDescription,
       "currentSluge": slug.current,
       titleImage,
-      demoLink
+      demoLink,
+      technology
     }
   `;
   const data:simpleBlogCard[] = await client.fetch(query)

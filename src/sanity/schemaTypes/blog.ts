@@ -38,6 +38,12 @@ export default {
       title: "Small Description",
     },
     {
+      name: "technology",
+      type: "array",
+      title: "Technologies Used",
+      of: [{ type: "string" }],
+    },
+    {
       name: "content",
       type: "array",
       title: "Content",

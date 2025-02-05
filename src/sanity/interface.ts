@@ -8,7 +8,8 @@ export interface simpleBlogCard {
   smallDescription: string;
   currentSluge: string;
   titleImage: Image;
-  demoLink: string
+  demoLink: string;
+  technology: string[];
 }
 
 export interface fullBlog {

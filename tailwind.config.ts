@@ -76,6 +76,7 @@ const config = {
   },
   plugins: [
     require("tailwindcss-animate"),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-var-requires
     require("tailwind-scrollbar")({ nocompatible: true }),
     require("@tailwindcss/typography"),
   ],
